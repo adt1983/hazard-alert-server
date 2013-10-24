@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<alert xmlns="urn:oasis:names:tc:emergency:cap:1.2">
+	<identifier>2.49.0.1.124.7d3581a9.2013</identifier>
+	<sender>cap-pac@ec.gc.ca</sender>
+	<sent>2013-10-16T18:48:00-00:00</sent>
+	<status>Actual</status>
+	<msgType>Update</msgType>
+	<source>Environment Canada - Environnement Canada - Toronto (CWTO)
+	</source>
+	<scope>Public</scope>
+	<restriction />
+	<addresses />
+	<code>profile:CAP-CP:0.4</code>
+	<code>layer:EC-MSC-SMC:1.0</code>
+	<code>layer:SOREM:1.0</code>
+	<note />
+	<references>cap-pac@ec.gc.ca,2.49.0.1.124.a2d8b8ef.2013,2013-10-16T07:53:00-00:00
+		cap-pac@ec.gc.ca,2.49.0.1.124.bd77f583.2013,2013-10-16T07:53:00-00:00
+		cap-pac@ec.gc.ca,2.49.0.1.124.b7c1db9d.2013,2013-10-16T13:47:00-00:00
+		cap-pac@ec.gc.ca,2.49.0.1.124.80e3fcde.2013,2013-10-16T13:47:00-00:00
+	</references>
+	<incidents />
+	<info>
+		<language>en-CA</language>
+		<category>Met</category>
+		<event>wind</event>
+		<responseType>Monitor</responseType>
+		<urgency>Future</urgency>
+		<severity>Moderate</severity>
+		<certainty>Likely</certainty>
+		<audience>General Public</audience>
+		<eventCode>
+			<valueName>profile:CAP-CP:Event:0.4</valueName>
+			<value>wind</value>
+		</eventCode>
+		<eventCode>
+			<valueName>SAME</valueName>
+			<value>HWW</value>
+		</eventCode>
+		<effective>2013-10-16T18:48:00-00:00</effective>
+		<expires>2013-10-17T10:48:00-00:00</expires>
+		<senderName>Environment Canada</senderName>
+		<headline>Les Suêtes wind warning in effect</headline>
+		<description />
+		<instruction>Please monitor for further updates to this alert.
+		</instruction>
+		<web>http://weather.gc.ca/warnings/</web>
+		<contact />
+		<parameter>
+			<valueName>layer:EC-MSC-SMC:1.0:Alert_Type</valueName>
+			<value>warning</value>
+		</parameter>
+		<parameter>
+			<valueName>layer:EC-MSC-SMC:1.0:Broadcast_Intrusive</valueName>
+			<value>no</value>
+		</parameter>
+		<parameter>
+			<valueName>layer:SOREM:1.0:Broadcast_Immediately</valueName>
+			<value>No</value>
+		</parameter>
+		<parameter>
+			<valueName>layer:EC-MSC-SMC:1.0:Parent_URI</valueName>
+			<value>msc/alert/environment/hazard/mfile-1.0-ascii/decoded_consolidated-xml-2.0/20131016184800000/ww_11_71_cwhx/lww/ww_11_71_cwhx_201310160753_lww/public/2013_135079/non-bi/en_upper_complete/fr_not_present
+			</value>
+		</parameter>
+		<parameter>
+			<valueName>layer:EC-MSC-SMC:1.0:CAP_count</valueName>
+			<value>57807</value>
+		</parameter>
+		<area>
+			<areaDesc>Inverness County - Mabou and north</areaDesc>
+			<polygon>47.1182,-60.7733 47.1728,-60.5145 47.036,-60.5506
+				46.4988,-60.7423 46.1153,-61.0483 46.097,-61.4772 46.0994,-61.6266
+				46.2624,-61.506 47.1182,-60.7733</polygon>
+			<geocode>
+				<valueName>layer:EC-MSC-SMC:1.0:CLC</valueName>
+				<value>014300</value>
+			</geocode>
+			<geocode>
+				<valueName>profile:CAP-CP:Location:0.3</valueName>
+				<value>1215006</value>
+			</geocode>
+			<geocode>
+				<valueName>profile:CAP-CP:Location:0.3</valueName>
+				<value>1215011</value>
+			</geocode>
+		</area>
+	</info>
+	<info>
+		<language>fr-CA</language>
+		<category>Met</category>
+		<event>vent</event>
+		<responseType>Monitor</responseType>
+		<urgency>Future</urgency>
+		<severity>Moderate</severity>
+		<certainty>Likely</certainty>
+		<audience>General Public</audience>
+		<eventCode>
+			<valueName>profile:CAP-CP:Event:0.4</valueName>
+			<value>wind</value>
+		</eventCode>
+		<eventCode>
+			<valueName>SAME</valueName>
+			<value>HWW</value>
+		</eventCode>
+		<effective>2013-10-16T18:48:00-00:00</effective>
+		<expires>2013-10-17T10:48:00-00:00</expires>
+		<senderName>Environnement Canada</senderName>
+		<headline>avertissement de vent Les Suêtes en vigueur</headline>
+		<description />
+		<instruction>Veuillez consulter les mises à jour de cette alerte.
+		</instruction>
+		<web>http://meteo.gc.ca/warnings/</web>
+		<contact />
+		<parameter>
+			<valueName>layer:EC-MSC-SMC:1.0:Alert_Type</valueName>
+			<value>warning</value>
+		</parameter>
+		<parameter>
+			<valueName>layer:EC-MSC-SMC:1.0:Broadcast_Intrusive</valueName>
+			<value>no</value>
+		</parameter>
+		<parameter>
+			<valueName>layer:SOREM:1.0:Broadcast_Immediately</valueName>
+			<value>No</value>
+		</parameter>
+		<parameter>
+			<valueName>layer:EC-MSC-SMC:1.0:Parent_URI</valueName>
+			<value>msc/alert/environment/hazard/mfile-1.0-ascii/decoded_consolidated-xml-2.0/20131016184800000/ww_11_71_cwhx/lww/ww_11_71_cwhx_201310160753_lww/public/2013_135079/non-bi/en_upper_complete/fr_not_present
+			</value>
+		</parameter>
+		<parameter>
+			<valueName>layer:EC-MSC-SMC:1.0:CAP_count</valueName>
+			<value>57807</value>
+		</parameter>
+		<area>
+			<areaDesc>comté d'Inverness - Mabou et au nord</areaDesc>
+			<polygon>47.1182,-60.7733 47.1728,-60.5145 47.036,-60.5506
+				46.4988,-60.7423 46.1153,-61.0483 46.097,-61.4772 46.0994,-61.6266
+				46.2624,-61.506 47.1182,-60.7733</polygon>
+			<geocode>
+				<valueName>layer:EC-MSC-SMC:1.0:CLC</valueName>
+				<value>014300</value>
+			</geocode>
+			<geocode>
+				<valueName>profile:CAP-CP:Location:0.3</valueName>
+				<value>1215006</value>
+			</geocode>
+			<geocode>
+				<valueName>profile:CAP-CP:Location:0.3</valueName>
+				<value>1215011</value>
+			</geocode>
+		</area>
+	</info>
+</alert>
