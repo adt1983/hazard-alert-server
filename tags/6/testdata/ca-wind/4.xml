@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<alert xmlns="urn:oasis:names:tc:emergency:cap:1.2">
+	<identifier>2.49.0.1.124.80e3fcde.2013</identifier>
+	<sender>cap-pac@ec.gc.ca</sender>
+	<sent>2013-10-16T13:47:00-00:00</sent>
+	<status>Actual</status>
+	<msgType>Update</msgType>
+	<source>Environment Canada - Environnement Canada - Toronto (CWTO)
+	</source>
+	<scope>Public</scope>
+	<restriction />
+	<addresses />
+	<code>profile:CAP-CP:0.4</code>
+	<code>layer:EC-MSC-SMC:1.0</code>
+	<code>layer:SOREM:1.0</code>
+	<note />
+	<references>cap-pac@ec.gc.ca,2.49.0.1.124.a2d8b8ef.2013,2013-10-16T07:53:00-00:00
+		cap-pac@ec.gc.ca,2.49.0.1.124.bd77f583.2013,2013-10-16T07:53:00-00:00
+		cap-pac@ec.gc.ca,2.49.0.1.124.b7c1db9d.2013,2013-10-16T13:47:00-00:00
+	</references>
+	<incidents />
+	<info>
+		<language>en-CA</language>
+		<category>Met</category>
+		<event>wind</event>
+		<responseType>Monitor</responseType>
+		<urgency>Future</urgency>
+		<severity>Moderate</severity>
+		<certainty>Likely</certainty>
+		<audience>General Public</audience>
+		<eventCode>
+			<valueName>profile:CAP-CP:Event:0.4</valueName>
+			<value>wind</value>
+		</eventCode>
+		<eventCode>
+			<valueName>SAME</valueName>
+			<value>HWW</value>
+		</eventCode>
+		<effective>2013-10-16T13:47:00-00:00</effective>
+		<expires>2013-10-17T05:47:00-00:00</expires>
+		<senderName>Environment Canada</senderName>
+		<headline>Les Suêtes wind warning in effect</headline>
+		<description>Winds up to 90 km/h will develop overnight. This is a
+			warning that potentially hazardous winds..Les Suetes..are expected in
+			these regions and over adjacent coastal waters. Monitor weather
+			conditions..listen for updated statements. A trough of low pressure
+			will cross the Maritimes overnight. Rain associated with this feature
+			has begun over Southwestern Nova Scotia and will spread eastward
+			today and tonight. Rainfall amounts in excess of 50 millimetres are
+			expected along the Atlantic coast of Nova Scotia with locally higher
+			amounts possible in heaviest showers. Western regions are expected to
+			receive 20 to 40 millimetres of rain, with local amounts possibly
+			exceeding 50 millimetres. Also, Les Suetes winds will develop
+			overnight over the Cape Breton Highlands ahead of the trough. Wind
+			gusts up to 90 km/h are expected and will persist until noon
+			Thursday.
+		</description>
+		<instruction>Please monitor for further updates to this alert.
+		</instruction>
+		<web>http://weather.gc.ca/warnings/</web>
+		<contact />
+		<parameter>
+			<valueName>layer:EC-MSC-SMC:1.0:Alert_Type</valueName>
+			<value>warning</value>
+		</parameter>
+		<parameter>
+			<valueName>layer:EC-MSC-SMC:1.0:Broadcast_Intrusive</valueName>
+			<value>no</value>
+		</parameter>
+		<parameter>
+			<valueName>layer:SOREM:1.0:Broadcast_Immediately</valueName>
+			<value>No</value>
+		</parameter>
+		<parameter>
+			<valueName>layer:EC-MSC-SMC:1.0:Parent_URI</valueName>
+			<value>msc/alert/environment/hazard/mfile-1.0-ascii/decoded_consolidated-xml-2.0/20131016134700000/ww_11_71_cwhx/lww/ww_11_71_cwhx_201310160753_lww/public/2013_135035/non-bi/en_proper_complete/fr_proper_complete
+			</value>
+		</parameter>
+		<parameter>
+			<valueName>layer:EC-MSC-SMC:1.0:CAP_count</valueName>
+			<value>57783</value>
+		</parameter>
+		<parameter>
+			<valueName>profile:CAP-CP:0.4:MinorChange</valueName>
+			<value>text</value>
+		</parameter>
+		<area>
+			<areaDesc>Inverness County - Mabou and north</areaDesc>
+			<polygon>47.1182,-60.7733 47.1728,-60.5145 47.036,-60.5506
+				46.4988,-60.7423 46.1153,-61.0483 46.097,-61.4772 46.0994,-61.6266
+				46.2624,-61.506 47.1182,-60.7733</polygon>
+			<geocode>
+				<valueName>layer:EC-MSC-SMC:1.0:CLC</valueName>
+				<value>014300</value>
+			</geocode>
+			<geocode>
+				<valueName>profile:CAP-CP:Location:0.3</valueName>
+				<value>1215006</value>
+			</geocode>
+			<geocode>
+				<valueName>profile:CAP-CP:Location:0.3</valueName>
+				<value>1215011</value>
+			</geocode>
+		</area>
+	</info>
+	<info>
+		<language>fr-CA</language>
+		<category>Met</category>
+		<event>vent</event>
+		<responseType>Monitor</responseType>
+		<urgency>Future</urgency>
+		<severity>Moderate</severity>
+		<certainty>Likely</certainty>
+		<audience>General Public</audience>
+		<eventCode>
+			<valueName>profile:CAP-CP:Event:0.4</valueName>
+			<value>wind</value>
+		</eventCode>
+		<eventCode>
+			<valueName>SAME</valueName>
+			<value>HWW</value>
+		</eventCode>
+		<effective>2013-10-16T13:47:00-00:00</effective>
+		<expires>2013-10-17T05:47:00-00:00</expires>
+		<senderName>Environnement Canada</senderName>
+		<headline>avertissement de vent Les Suêtes en vigueur</headline>
+		<description>Des vents jusqu'à 90 km/h se lèveront au cours de la
+			nuit. Ceci est un avertissement annonçant que des vents pouvant être
+			dangereux, les suêtes, souffleront sur ces régions et sur les eaux
+			côtières adjacentes. Veuillez surveiller les conditions météo ainsi
+			que les bulletins météorologiques et leurs mises à jour. Un creux
+			traversera les Maritimes au cours de la nuit. De la pluie associée à
+			ce système a commencé sur le sud-ouest de la Nouvelle-Écosse et se
+			propagera vers l'est aujourd'hui, ce soir et cette nuit. On prévoit
+			plus de 50 millimètres de pluie le long de la côte atlantique de la
+			Nouvelle-Écosse, et une quantité possiblement plus importante par
+			endroits dans les averses les plus fortes. Les secteurs ouest
+			devraient recevoir 20 à 40 millimètres de pluie, avec une quantité de
+			plus de 50 millimètres possible par endroits. Aussi, des vents les
+			suêtes se lèveront au cours de la nuit sur les hautes-terres du
+			Cap-Breton à l'avant du creux. On prévoit des rafales jusqu'à 90 km/h
+			et celles-ci persisteront jusqu'à midi jeudi.
+		</description>
+		<instruction>Veuillez consulter les mises à jour de cette alerte.
+		</instruction>
+		<web>http://meteo.gc.ca/warnings/</web>
+		<contact />
+		<parameter>
+			<valueName>layer:EC-MSC-SMC:1.0:Alert_Type</valueName>
+			<value>warning</value>
+		</parameter>
+		<parameter>
+			<valueName>layer:EC-MSC-SMC:1.0:Broadcast_Intrusive</valueName>
+			<value>no</value>
+		</parameter>
+		<parameter>
+			<valueName>layer:SOREM:1.0:Broadcast_Immediately</valueName>
+			<value>No</value>
+		</parameter>
+		<parameter>
+			<valueName>layer:EC-MSC-SMC:1.0:Parent_URI</valueName>
+			<value>msc/alert/environment/hazard/mfile-1.0-ascii/decoded_consolidated-xml-2.0/20131016134700000/ww_11_71_cwhx/lww/ww_11_71_cwhx_201310160753_lww/public/2013_135035/non-bi/en_proper_complete/fr_proper_complete
+			</value>
+		</parameter>
+		<parameter>
+			<valueName>layer:EC-MSC-SMC:1.0:CAP_count</valueName>
+			<value>57783</value>
+		</parameter>
+		<parameter>
+			<valueName>profile:CAP-CP:0.4:MinorChange</valueName>
+			<value>text</value>
+		</parameter>
+		<area>
+			<areaDesc>comté d'Inverness - Mabou et au nord</areaDesc>
+			<polygon>47.1182,-60.7733 47.1728,-60.5145 47.036,-60.5506
+				46.4988,-60.7423 46.1153,-61.0483 46.097,-61.4772 46.0994,-61.6266
+				46.2624,-61.506 47.1182,-60.7733</polygon>
+			<geocode>
+				<valueName>layer:EC-MSC-SMC:1.0:CLC</valueName>
+				<value>014300</value>
+			</geocode>
+			<geocode>
+				<valueName>profile:CAP-CP:Location:0.3</valueName>
+				<value>1215006</value>
+			</geocode>
+			<geocode>
+				<valueName>profile:CAP-CP:Location:0.3</valueName>
+				<value>1215011</value>
+			</geocode>
+		</area>
+	</info>
+</alert>

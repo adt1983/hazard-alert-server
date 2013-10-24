@@ -1,0 +1,1 @@
+appcfg.py --url=http://hazard-alert.appspot.com/remote_api --application=s~hazard-alert --kind=Fips --config_file=fips.yaml --filename=fips_geometry.csv upload_data
