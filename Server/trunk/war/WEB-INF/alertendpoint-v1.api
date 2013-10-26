@@ -260,9 +260,30 @@
             "type" : "string",
             "format" : "int64"
           },
+          "severity" : {
+            "$ref" : "Longs"
+          },
+          "certainty" : {
+            "$ref" : "Longs"
+          },
+          "urgency" : {
+            "$ref" : "Longs"
+          },
+          "status" : {
+            "$ref" : "Longs"
+          },
           "limit" : {
             "type" : "string",
             "format" : "int64"
+          }
+        }
+      },
+      "Longs" : {
+        "id" : "Longs",
+        "type" : "object",
+        "properties" : {
+          "empty" : {
+            "type" : "boolean"
           }
         }
       }

@@ -28,6 +28,7 @@ import com.google.api.server.spi.config.ApiTransformer;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.publicalerts.cap.Info;
 import com.hazardalert.common.AlertFilter;
+import com.hazardalert.common.Bounds;
 import com.hazardalert.common.CommonUtil;
 import com.vividsolutions.jts.geom.Geometry;
 
@@ -150,10 +151,11 @@ public class Alert {
 	public static List<Alert> search(AlertFilter filter) {
 		String hql = "FROM Alert WHERE 1 = 1";
 		if (null != filter.getInclude()) {
-			hql += " AND intersects(area.area, GeomFromText(?)) = true";
+			hql += " AND intersects(area.area, GeomFromText(:include)) = true";
+			hql += " AND NOT (area.maxLat < :minLat) AND NOT (area.maxLng < :minLng) AND NOT (area.minLat > :maxLat) AND NOT (area.minLng > :maxLng)";
 		}
 		if (null != filter.getExclude()) {
-			hql += " AND NOT intersects(area.area, GeomFromText(?)) = true";
+			hql += " AND NOT intersects(area.area, GeomFromText(:exclude)) = true";
 		}
 		/*if (null != filter.getMinExpires()) {
 			sql = sql.concat(" AND expires > ?");
@@ -164,12 +166,16 @@ public class Alert {
 		EntityManager em = ApiKeyInitializer.createEntityManager();
 		try {
 			TypedQuery<Alert> q = em.createQuery(hql, Alert.class);
-			int pi = 1; // Hibernate uses 1-based parameter indexing?
 			if (null != filter.getInclude()) {
-				q.setParameter(pi++, filter.getInclude().toPolygon().toText());
+				Bounds include = filter.getInclude();
+				q.setParameter("include", include.toPolygon().toText());
+				q.setParameter("minLat", include.getSw_lat());
+				q.setParameter("minLng", include.getSw_lng());
+				q.setParameter("maxLat", include.getNe_lat());
+				q.setParameter("maxLng", include.getNe_lng());
 			}
 			if (null != filter.getExclude()) {
-				q.setParameter(pi++, filter.getExclude().toPolygon().toText());
+				q.setParameter("exclude", filter.getExclude().toPolygon().toText());
 			}
 			/*if (null != filter.getMinExpires()) {
 				ps.setDate(pi++, new java.sql.Date(filter.getMinExpires()));

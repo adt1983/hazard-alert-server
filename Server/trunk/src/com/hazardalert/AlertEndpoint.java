@@ -33,6 +33,7 @@ public class AlertEndpoint {
 
 	@ApiMethod(name = "alert.find")
 	public Alert alertFind(@Nullable @Named("fullName") String fullName) {
+		logger.info(fullName);
 		return Alert.find(fullName);
 	}
 

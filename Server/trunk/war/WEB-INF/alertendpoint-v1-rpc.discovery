@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"doS0mIKix6_L3_LoT-sZZjofha4/6fG4GijypqbxBNtgxu9kE6k_LKI\"",
+ "etag": "\"doS0mIKix6_L3_LoT-sZZjofha4/IsJSE8UCw9ucR64cmH4lU--SHVU\"",
  "discoveryVersion": "v1",
  "id": "alertendpoint:v1",
  "name": "alertendpoint",
@@ -73,6 +73,9 @@
    "id": "AlertFilter",
    "type": "object",
    "properties": {
+    "certainty": {
+     "$ref": "Longs"
+    },
     "exclude": {
      "$ref": "Bounds"
     },
@@ -90,6 +93,15 @@
     "minExpires": {
      "type": "string",
      "format": "int64"
+    },
+    "severity": {
+     "$ref": "Longs"
+    },
+    "status": {
+     "$ref": "Longs"
+    },
+    "urgency": {
+     "$ref": "Longs"
     }
    }
   },
@@ -133,6 +145,15 @@
     "sw_lng": {
      "type": "number",
      "format": "double"
+    }
+   }
+  },
+  "Longs": {
+   "id": "Longs",
+   "type": "object",
+   "properties": {
+    "empty": {
+     "type": "boolean"
     }
    }
   },

@@ -75,7 +75,7 @@ public class IngestAlertServlet extends TaskServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		super.doPost(req, resp);
+		setStatusDone(resp);
 		try {
 			String capUrl = req.getParameter(PARAMETER_CAPURL);
 			String capXml = req.getParameter(PARAMETER_CAPXML);
@@ -94,7 +94,7 @@ public class IngestAlertServlet extends TaskServlet {
 			}
 			capXml = capXml.trim().replaceFirst("^([\\W]+)<", "<"); // http://stackoverflow.com/questions/3030903/content-is-not-allowed-in-prolog-when-parsing-perfectly-valid-xml-on-gae
 			logger.info("Ingesting:\n" + capXml);
-			com.google.publicalerts.cap.Alert external = parser.parseAlert(capXml);
+			com.google.publicalerts.cap.Alert external = parser.parseAlert(capXml); // rethrow FatalException if this throws?
 			com.google.publicalerts.cap.Alert internal = rewriteAlert(external);
 			logger.info("Internal: \n" + new CapXmlBuilder().toXml(internal));
 			GoogleProfile googleProfile = new GoogleProfile();
@@ -143,9 +143,8 @@ public class IngestAlertServlet extends TaskServlet {
 		}
 		catch (Exception e) {
 			logger.log(Level.SEVERE, "Failed to ingest alert.", e);
-		}
-		finally {
-			setStatusDone(resp);
+			setStatusRetry(resp);
+			super.doPost(req, resp); // don't retry if we are over the retry limit
 		}
 	}
 
@@ -229,6 +228,9 @@ public class IngestAlertServlet extends TaskServlet {
 				Calendar expires = Calendar.getInstance();
 				expires.add(Calendar.DAY_OF_YEAR, 1); // one day from now
 				info.setExpires(DatatypeConverter.printTime(expires));
+			}
+			if (!info.hasSenderName()) {
+				info.setSenderName(in.getSender());
 			}
 			info.clearParameter(); // strip params b/c we don't (yet) know how to handle them downstream
 			for (Area.Builder area : info.getAreaBuilderList()) {
