@@ -154,9 +154,18 @@ public class IngestAlertServlet extends TaskServlet {
 			return polygon;
 		}
 		Polygon in = CommonUtil.toPolygonJts(polygon);
-		Polygon out = (Polygon) com.vividsolutions.jts.simplify.TopologyPreservingSimplifier.simplify(in, 0.01);
-		if (!in.equalsExact(out)) {
-			logger.info("Simplification:\nin: " + in.toText() + "\nout: " + out.toText());
+		Polygon out = null;
+		try {
+			out = LosslessPolygonSimplifier.simplify(in);
+		}
+		catch (Exception e) {
+			logger.severe("Failed to simplify polygon!");
+			return polygon;
+		}
+		finally {
+			if (!in.equalsExact(out)) {
+				logger.info("Simplification:\nin: " + in.toText() + "\nout: " + (out == null ? "" : out.toText()));
+			}
 		}
 		return CommonUtil.toPolygonCap(out);
 	}
