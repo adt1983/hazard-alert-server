@@ -45,7 +45,7 @@ public class ApiKeyInitializer implements ServletContextListener {
 
 	private static final String ACCESS_KEY_FIELD = "ApiKey";
 
-	private final Logger logger = Logger.getLogger(getClass().getName());
+	private static final Logger logger = Logger.getLogger(ApiKeyInitializer.class.getName());
 
 	private static EntityManagerFactory emf;
 
@@ -111,6 +111,22 @@ public class ApiKeyInitializer implements ServletContextListener {
 		if (emf == null) {
 			throw new IllegalStateException("Context is not initialized yet.");
 		}
-		return emf.createEntityManager();
+		EntityManager em;
+		for (long retryInterval = 100;/* HardDeadlineException */; retryInterval *= 2) {
+			try {
+				em = emf.createEntityManager();
+				em.createNativeQuery("SELECT 1").getFirstResult();
+				return em;
+			}
+			catch (Exception e) {
+				logger.log(Level.WARNING, "Could not create entity manager.", e);
+				try {
+					Thread.sleep(retryInterval);
+				}
+				catch (InterruptedException ie) {
+					//?
+				}
+			}
+		}
 	}
 }

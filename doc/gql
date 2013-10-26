@@ -38,3 +38,4 @@ alter table Alerts2 ENGINE=MyISAM
 alter table AreaDB ENGINE=MyISAM
 explain select *, AsText(location) from Alerts2 where Contains(GeomFromText('POLYGON((3 3, 3 4, 4 4, 4 3, 3 3))'), location)
 
+>(.*?)NOAA-NWS-ALERTS-PA124F1E9ABAD0.FrostAdvisory.124F1EA95450PA.PHINPWPHI.91444f449d33e046772360b66652bb85

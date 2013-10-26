@@ -19,7 +19,7 @@
 package com.appspot.hazard_alert.alertendpoint.model;
 
 /**
- * Model definition for AlertTransport.
+ * Model definition for Longs.
  *
  * <p> This is the Java data model class that specifies how to parse/serialize into the JSON that is
  * transmitted over HTTP when working with the alertendpoint. For a detailed explanation see:
@@ -29,37 +29,37 @@ package com.appspot.hazard_alert.alertendpoint.model;
  * @author Google, Inc.
  */
 @SuppressWarnings("javadoc")
-public final class AlertTransport extends com.google.api.client.json.GenericJson {
+public final class Longs extends com.google.api.client.json.GenericJson {
 
   /**
    * The value may be {@code null}.
    */
   @com.google.api.client.util.Key
-  private java.lang.String payload;
+  private java.lang.Boolean empty;
 
   /**
    * @return value or {@code null} for none
    */
-  public java.lang.String getPayload() {
-    return payload;
+  public java.lang.Boolean getEmpty() {
+    return empty;
   }
 
   /**
-   * @param payload payload or {@code null} for none
+   * @param empty empty or {@code null} for none
    */
-  public AlertTransport setPayload(java.lang.String payload) {
-    this.payload = payload;
+  public Longs setEmpty(java.lang.Boolean empty) {
+    this.empty = empty;
     return this;
   }
 
   @Override
-  public AlertTransport set(String fieldName, Object value) {
-    return (AlertTransport) super.set(fieldName, value);
+  public Longs set(String fieldName, Object value) {
+    return (Longs) super.set(fieldName, value);
   }
 
   @Override
-  public AlertTransport clone() {
-    return (AlertTransport) super.clone();
+  public Longs clone() {
+    return (Longs) super.clone();
   }
 
 }
