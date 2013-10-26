@@ -15,9 +15,9 @@ public class LosslessPolygonSimplifier {
 		Polygon convexHull = (Polygon) input.convexHull();
 		Geometry diff = input.difference(simple);
 		new Assert(input.getArea() <= simple.getArea() && simple.getArea() <= convexHull.getArea());
-		new Assert(convexHull.covers(input));
-		new Assert(convexHull.covers(simple));
-		new Assert(simple.covers(input) || (diff.getArea() / simple.getArea()) < 0.0001); // shouldn't covers be enough?
+		//new Assert(convexHull.covers(input));
+		//new Assert(convexHull.covers(simple));
+		new Assert(diff.isEmpty() || (diff.getArea() / simple.getArea()) < 0.0001); // shouldn't .covers be enough?
 		return simple;
 	}
 }

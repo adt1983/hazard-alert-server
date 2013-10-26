@@ -159,11 +159,11 @@ public class IngestAlertServlet extends TaskServlet {
 			out = LosslessPolygonSimplifier.simplify(in);
 		}
 		catch (Exception e) {
-			logger.severe("Failed to simplify polygon!");
+			logger.log(Level.SEVERE, "Failed to simplify polygon!", e);
 			return polygon;
 		}
 		finally {
-			if (!in.equalsExact(out)) {
+			if (null == out || !in.equalsExact(out)) {
 				logger.info("Simplification:\nin: " + in.toText() + "\nout: " + (out == null ? "" : out.toText()));
 			}
 		}
