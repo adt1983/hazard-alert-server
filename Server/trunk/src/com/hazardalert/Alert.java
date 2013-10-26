@@ -73,7 +73,7 @@ public class Alert {
 	public Alert(com.google.publicalerts.cap.Alert _impl) {
 		this.impl = _impl;
 		this.implData = impl.toByteArray();
-		setFullName(impl.getSender() + "," + impl.getIdentifier() + "," + impl.getSent());
+		setFullName(getFullName(impl));
 		setExpires(new Date());
 		setEffective(DatatypeConverter.parseDateTime(impl.getSent()).getTime()); // TODO ???
 		area = new Area(CommonUtil.cap_to_jts(impl));
@@ -249,5 +249,9 @@ public class Alert {
 		finally {
 			em.close();
 		}
+	}
+
+	public static String getFullName(com.google.publicalerts.cap.Alert alert) {
+		return alert.getSender() + "," + alert.getIdentifier() + "," + alert.getSent();
 	}
 }
