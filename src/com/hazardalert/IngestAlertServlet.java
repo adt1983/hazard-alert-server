@@ -95,6 +95,12 @@ public class IngestAlertServlet extends TaskServlet {
 			capXml = capXml.trim().replaceFirst("^([\\W]+)<", "<"); // http://stackoverflow.com/questions/3030903/content-is-not-allowed-in-prolog-when-parsing-perfectly-valid-xml-on-gae
 			logger.info("Ingesting:\n" + capXml);
 			com.google.publicalerts.cap.Alert external = parser.parseAlert(capXml); // rethrow FatalException if this throws?
+			Alert existingAlert = Alert.find(Alert.getFullName(external));
+			if (null != existingAlert) {
+				// Alert with this fullName already exists, check that they are exact duplicates?
+				logger.warning("Already exists.");
+				return;
+			}
 			com.google.publicalerts.cap.Alert internal = rewriteAlert(external);
 			logger.info("Internal: \n" + new CapXmlBuilder().toXml(internal));
 			GoogleProfile googleProfile = new GoogleProfile();
@@ -110,12 +116,6 @@ public class IngestAlertServlet extends TaskServlet {
 				return;
 			}
 			Alert alert = new Alert(internal);
-			Alert existingAlert = Alert.find(alert.getFullName());
-			if (null != existingAlert) {
-				// Alert with this fullName already exists, check that they are exact duplicates?
-				logger.warning("Already exists.");
-				return;
-			}
 			/* Valid Alert. Persist. Check for updates. Push. 
 			 */
 			EntityManager em = ApiKeyInitializer.createEntityManager();
