@@ -15,9 +15,9 @@ public class LosslessPolygonSimplifier {
 		Polygon simple = (Polygon) com.vividsolutions.jts.simplify.TopologyPreservingSimplifier.simplify(input, 0.01);
 		simple = (Polygon) simple.union(input); // re-attach any polygons we 'oversimplified'
 		simple = new Polygon((LinearRing) simple.getExteriorRing(), null, new GeometryFactory()); // drop any holes
-		Polygon convexHull = (Polygon) input.convexHull();
+		//Polygon convexHull = (Polygon) input.convexHull();
 		Geometry diff = input.difference(simple);
-		new Assert(input.getArea() <= simple.getArea() && simple.getArea() <= convexHull.getArea());
+		//new Assert(input.getArea() <= simple.getArea() && simple.getArea() <= convexHull.getArea());
 		new Assert(0 == simple.getNumInteriorRing());
 		//new Assert(convexHull.covers(input));
 		//new Assert(convexHull.covers(simple));
