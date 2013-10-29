@@ -134,8 +134,8 @@ public class IngestAlertServlet extends TaskServlet {
 						}
 					}
 				}
-				em.getTransaction().commit();
 				DB.pushAlert(alert);
+				em.getTransaction().commit();
 			}
 			finally {
 				em.close();
