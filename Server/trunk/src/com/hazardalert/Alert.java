@@ -28,6 +28,7 @@ import com.google.api.server.spi.config.ApiTransformer;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.publicalerts.cap.Info;
 import com.hazardalert.common.AlertFilter;
+import com.hazardalert.common.Assert;
 import com.hazardalert.common.Bounds;
 import com.hazardalert.common.CommonUtil;
 import com.vividsolutions.jts.geom.Geometry;
@@ -152,7 +153,7 @@ public class Alert {
 		String hql = "FROM Alert WHERE 1 = 1";
 		if (null != filter.getInclude()) {
 			hql += " AND intersects(area.area, GeomFromText(:include)) = true";
-			hql += " AND NOT (area.maxLat < :minLat) AND NOT (area.maxLng < :minLng) AND NOT (area.minLat > :maxLat) AND NOT (area.minLng > :maxLng)";
+			hql += " AND NOT (area.maxLng < :minLng) AND NOT (area.maxLat < :minLat) AND NOT (area.minLng > :maxLng) AND NOT (area.minLat > :maxLat)";
 		}
 		if (null != filter.getExclude()) {
 			hql += " AND NOT intersects(area.area, GeomFromText(:exclude)) = true";
@@ -169,10 +170,10 @@ public class Alert {
 			if (null != filter.getInclude()) {
 				Bounds include = filter.getInclude();
 				q.setParameter("include", include.toPolygon().toText());
-				q.setParameter("minLat", include.getSw_lat());
-				q.setParameter("minLng", include.getSw_lng());
-				q.setParameter("maxLat", include.getNe_lat());
 				q.setParameter("maxLng", include.getNe_lng());
+				q.setParameter("maxLat", include.getNe_lat());
+				q.setParameter("minLng", include.getSw_lng());
+				q.setParameter("minLat", include.getSw_lat());
 			}
 			if (null != filter.getExclude()) {
 				q.setParameter("exclude", filter.getExclude().toPolygon().toText());
@@ -194,10 +195,19 @@ public class Alert {
 	public List<String> findIntersectingGCM() {
 		EntityManager em = ApiKeyInitializer.createEntityManager();
 		try {
-			return Util.returnList(em.createQuery(	"SELECT s.gcm FROM Subscription s, Alert a WHERE intersects(a.area.area, s.area.area) = true AND a.id = :id",
-													String.class)
-										.setParameter("id", getId())
-										.getResultList());
+			List<String> results = Util.returnList(em.createQuery(	"SELECT s.gcm FROM Subscription s, Alert a WHERE intersects(a.area.area, s.area.area) = true AND a.id = :id",
+																	String.class)
+														.setParameter("id", getId())
+														.getResultList());
+			if (0 == results.size()) {
+				// check that we commited the alert and that it can at least find itself
+				new Assert(Util.returnList(em.createQuery(	"FROM Alert a WHERE intersects(a.area.area, a.area.area) = true AND a.id = :id",
+															Alert.class)
+												.setParameter("id", getId())
+												.getResultList())
+								.size() == 1);
+			}
+			return results;
 		}
 		finally {
 			em.close();

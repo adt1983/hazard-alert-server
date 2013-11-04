@@ -39,3 +39,13 @@ alter table AreaDB ENGINE=MyISAM
 explain select *, AsText(location) from Alerts2 where Contains(GeomFromText('POLYGON((3 3, 3 4, 4 4, 4 3, 3 3))'), location)
 
 >(.*?)NOAA-NWS-ALERTS-PA124F1E9ABAD0.FrostAdvisory.124F1EA95450PA.PHINPWPHI.91444f449d33e046772360b66652bb85
+
+select * from Alert where intersects(alert0_.area, alert0_.area)=1 and alert0_.id=?
+w-nws.webmaster@noaa.gov,NOAA-NWS-ALERTS-PA124F233F8A5C.FreezeWarning.124F234FAAE0PA.PHINPWPHI.fa8f35cbe5d16bd522b3e1f71e88cc5c,2013-11-03T03:31:00-05:00
+select a.* from  Alert a where a.fullName like '%NOAA-NWS-ALERTS-PA124F233F8A5C.FreezeWarning.124F234FAAE0PA.PHINPWPHI.fa8f35cbe5d16bd522b3e1f71e88cc5c%'
+
+
+select X(PointN(ExteriorRing(Envelope(area))), 1) from Alert
+select X(PointN(ExteriorRing(Envelope(a.area)), 1)), Y(PointN(ExteriorRing(Envelope(a.area)), 1)), X(PointN(ExteriorRing(Envelope(a.area)), 3)), Y(PointN(ExteriorRing(Envelope(a.area)), 3)) from Alert a where a.fullName like '%NOAA-NWS-ALERTS-PA124F233F8A5C.FreezeWarning.124F234FAAE0PA.PHINPWPHI.fa8f35cbe5d16bd522b3e1f71e88cc5c%'
+select X(PointN(ExteriorRing(Envelope(a.area)), 1)), Y(PointN(ExteriorRing(Envelope(a.area)), 1)), X(PointN(ExteriorRing(Envelope(a.area)), 3)), Y(PointN(ExteriorRing(Envelope(a.area)), 3)) from Alert a where a.fullName like '%NOAA-NWS-ALERTS-PA124F233F8A5C.FreezeWarning.124F234FAAE0PA.PHINPWPHI.fa8f35cbe5d16bd522b3e1f71e88cc5c%'
+select X(PointN(ExteriorRing(Envelope(a.area)), 1)), Y(PointN(ExteriorRing(Envelope(a.area)), 1)), X(PointN(ExteriorRing(Envelope(a.area)), 3)), Y(PointN(ExteriorRing(Envelope(a.area)), 3)) from Alert a where a.fullName like '%NOAA-NWS-ALERTS-PA124F233F8A5C.FreezeWarning.124F234FAAE0PA.PHINPWPHI.fa8f35cbe5d16bd522b3e1f71e88cc5c%'
