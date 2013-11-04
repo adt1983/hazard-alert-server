@@ -7,7 +7,7 @@ import javax.persistence.PrePersist;
 import org.hibernate.annotations.Index;
 import org.hibernate.annotations.Type;
 
-import com.vividsolutions.jts.geom.Envelope;
+import com.hazardalert.common.Bounds;
 import com.vividsolutions.jts.geom.Geometry;
 
 @Embeddable
@@ -38,21 +38,21 @@ public class Area {
 		setArea(_area);
 	}
 
-	@Index(name = "maxLat")
-	@Column(nullable = false)
-	private Double maxLat;
-
 	@Index(name = "maxLng")
 	@Column(nullable = false)
 	private Double maxLng;
 
-	@Index(name = "minLat")
+	@Index(name = "maxLat")
 	@Column(nullable = false)
-	private Double minLat;
+	private Double maxLat;
 
 	@Index(name = "minLng")
 	@Column(nullable = false)
 	private Double minLng;
+
+	@Index(name = "minLat")
+	@Column(nullable = false)
+	private Double minLat;
 
 	@PrePersist
 	public void onPrePersist() {
@@ -60,10 +60,10 @@ public class Area {
 	}
 
 	private void updateBounds() {
-		Envelope env = area.getEnvelopeInternal();
-		this.maxLat = env.getMaxX();
-		this.maxLng = env.getMaxY();
-		this.minLat = env.getMinX();
-		this.minLng = env.getMinY();
+		Bounds b = new Bounds(area.getEnvelopeInternal());
+		this.maxLng = b.getNe_lng();
+		this.maxLat = b.getNe_lat();
+		this.minLng = b.getSw_lng();
+		this.minLat = b.getSw_lat();
 	}
 }

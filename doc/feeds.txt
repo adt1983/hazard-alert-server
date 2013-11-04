@@ -9,7 +9,7 @@ http://alerts.weather.gov/cap/us.php?x=1
 http://rss.vialert.gov/RSS/CapIndices/_ALLVIRSSCAPIndex.xml
 http://earthquake.usgs.gov/earthquakes/catalogs/7day-M2.5.xml
 http://rss.nyalert.gov/RSS/CapIndices/_NewYorkStateRSSCAPIndex.xml
-http://edis.oes.ca.gov/index.atom
+http://edis.oes.ca.gov/index.atom - high noise to signal
 Australia has a brush fire feed but I can't find it 2/20/2013
 
 US 48 Bounding Box
