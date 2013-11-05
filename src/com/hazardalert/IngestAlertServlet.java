@@ -148,7 +148,6 @@ public class IngestAlertServlet extends TaskServlet {
 		}
 	}
 
-	// TODO we need an algorithm that allows increases but doesn't allow reductions in the area of the input polygon
 	private com.google.publicalerts.cap.Polygon simplify(com.google.publicalerts.cap.Polygon polygon) {
 		if (polygon.getPointCount() < 20) {
 			return polygon;
