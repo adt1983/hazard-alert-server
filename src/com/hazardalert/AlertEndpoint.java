@@ -48,6 +48,17 @@ public class AlertEndpoint {
 		}
 	}
 
+	@ApiMethod(name = "sender.list")
+	public List<Sender> senderList() {
+		EntityManager em = ApiKeyInitializer.createEntityManager();
+		try {
+			return U.toNonNull(em.createQuery("FROM Sender", Sender.class).getResultList());
+		}
+		finally {
+			em.close();
+		}
+	}
+
 	@ApiMethod(name = "subscription.create")
 	public Subscription createSubscription(@Named("gcm") String gcm, Bounds bounds, @Named("expires") Long expires) {
 		Geometry area = bounds.toPolygon();

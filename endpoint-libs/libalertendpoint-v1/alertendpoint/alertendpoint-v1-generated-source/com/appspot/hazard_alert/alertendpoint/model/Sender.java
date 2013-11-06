@@ -19,7 +19,7 @@
 package com.appspot.hazard_alert.alertendpoint.model;
 
 /**
- * Model definition for Bounds.
+ * Model definition for Sender.
  *
  * <p> This is the Java data model class that specifies how to parse/serialize into the JSON that is
  * transmitted over HTTP when working with the alertendpoint. For a detailed explanation see:
@@ -29,100 +29,121 @@ package com.appspot.hazard_alert.alertendpoint.model;
  * @author Google, Inc.
  */
 @SuppressWarnings("javadoc")
-public final class Bounds extends com.google.api.client.json.GenericJson {
+public final class Sender extends com.google.api.client.json.GenericJson {
 
   /**
    * The value may be {@code null}.
    */
-  @com.google.api.client.util.Key("ne_lat")
-  private java.lang.Double neLat;
+  @com.google.api.client.util.Key @com.google.api.client.json.JsonString
+  private java.lang.Long id;
 
   /**
    * The value may be {@code null}.
    */
-  @com.google.api.client.util.Key("ne_lng")
-  private java.lang.Double neLng;
+  @com.google.api.client.util.Key
+  private java.lang.String name;
 
   /**
    * The value may be {@code null}.
    */
-  @com.google.api.client.util.Key("sw_lat")
-  private java.lang.Double swLat;
+  @com.google.api.client.util.Key
+  private java.lang.String sender;
 
   /**
    * The value may be {@code null}.
    */
-  @com.google.api.client.util.Key("sw_lng")
-  private java.lang.Double swLng;
+  @com.google.api.client.util.Key
+  private java.lang.Boolean suppress;
+
+  /**
+   * The value may be {@code null}.
+   */
+  @com.google.api.client.util.Key
+  private java.lang.String url;
 
   /**
    * @return value or {@code null} for none
    */
-  public java.lang.Double getNeLat() {
-    return neLat;
+  public java.lang.Long getId() {
+    return id;
   }
 
   /**
-   * @param neLat neLat or {@code null} for none
+   * @param id id or {@code null} for none
    */
-  public Bounds setNeLat(java.lang.Double neLat) {
-    this.neLat = neLat;
+  public Sender setId(java.lang.Long id) {
+    this.id = id;
     return this;
   }
 
   /**
    * @return value or {@code null} for none
    */
-  public java.lang.Double getNeLng() {
-    return neLng;
+  public java.lang.String getName() {
+    return name;
   }
 
   /**
-   * @param neLng neLng or {@code null} for none
+   * @param name name or {@code null} for none
    */
-  public Bounds setNeLng(java.lang.Double neLng) {
-    this.neLng = neLng;
+  public Sender setName(java.lang.String name) {
+    this.name = name;
     return this;
   }
 
   /**
    * @return value or {@code null} for none
    */
-  public java.lang.Double getSwLat() {
-    return swLat;
+  public java.lang.String getSender() {
+    return sender;
   }
 
   /**
-   * @param swLat swLat or {@code null} for none
+   * @param sender sender or {@code null} for none
    */
-  public Bounds setSwLat(java.lang.Double swLat) {
-    this.swLat = swLat;
+  public Sender setSender(java.lang.String sender) {
+    this.sender = sender;
     return this;
   }
 
   /**
    * @return value or {@code null} for none
    */
-  public java.lang.Double getSwLng() {
-    return swLng;
+  public java.lang.Boolean getSuppress() {
+    return suppress;
   }
 
   /**
-   * @param swLng swLng or {@code null} for none
+   * @param suppress suppress or {@code null} for none
    */
-  public Bounds setSwLng(java.lang.Double swLng) {
-    this.swLng = swLng;
+  public Sender setSuppress(java.lang.Boolean suppress) {
+    this.suppress = suppress;
+    return this;
+  }
+
+  /**
+   * @return value or {@code null} for none
+   */
+  public java.lang.String getUrl() {
+    return url;
+  }
+
+  /**
+   * @param url url or {@code null} for none
+   */
+  public Sender setUrl(java.lang.String url) {
+    this.url = url;
     return this;
   }
 
   @Override
-  public Bounds set(String fieldName, Object value) {
-    return (Bounds) super.set(fieldName, value);
+  public Sender set(String fieldName, Object value) {
+    return (Sender) super.set(fieldName, value);
   }
 
   @Override
-  public Bounds clone() {
-    return (Bounds) super.clone();
+  public Sender clone() {
+    return (Sender) super.clone();
   }
 
 }

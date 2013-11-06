@@ -7,11 +7,11 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Index;
 
 import com.hazardalert.common.Bounds;
@@ -22,8 +22,7 @@ import com.vividsolutions.jts.geom.Geometry;
 @Entity
 public class Subscription {
 	@Id
-	@GeneratedValue(generator = "increment")
-	@GenericGenerator(name = "increment", strategy = "increment")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	@Index(name = "gcm")

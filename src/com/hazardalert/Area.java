@@ -7,6 +7,7 @@ import javax.persistence.PrePersist;
 import org.hibernate.annotations.Index;
 import org.hibernate.annotations.Type;
 
+import com.hazardalert.common.Assert;
 import com.hazardalert.common.Bounds;
 import com.vividsolutions.jts.geom.Geometry;
 
@@ -65,5 +66,7 @@ public class Area {
 		this.maxLat = b.getNe_lat();
 		this.minLng = b.getSw_lng();
 		this.minLat = b.getSw_lat();
+		// TODO deal with anti-meridian nonsense another day
+		new Assert(maxLng - minLng < 180.0, "Cannot span anti-meridian!");
 	}
 }

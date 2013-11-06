@@ -1,6 +1,6 @@
 {
  "kind": "discovery#rpcDescription",
- "etag": "\"doS0mIKix6_L3_LoT-sZZjofha4/IsJSE8UCw9ucR64cmH4lU--SHVU\"",
+ "etag": "\"doS0mIKix6_L3_LoT-sZZjofha4/L7W8CGUnjNJ46IgWJZV7n3d6ODI\"",
  "discoveryVersion": "v1",
  "id": "alertendpoint:v1",
  "name": "alertendpoint",
@@ -157,6 +157,40 @@
     }
    }
   },
+  "Sender": {
+   "id": "Sender",
+   "type": "object",
+   "properties": {
+    "id": {
+     "type": "string",
+     "format": "int64"
+    },
+    "name": {
+     "type": "string"
+    },
+    "sender": {
+     "type": "string"
+    },
+    "suppress": {
+     "type": "boolean"
+    },
+    "url": {
+     "type": "string"
+    }
+   }
+  },
+  "SenderCollection": {
+   "id": "SenderCollection",
+   "type": "object",
+   "properties": {
+    "items": {
+     "type": "array",
+     "items": {
+      "$ref": "Sender"
+     }
+    }
+   }
+  },
   "Subscription": {
    "id": "Subscription",
    "type": "object",
@@ -253,6 +287,15 @@
    ],
    "returns": {
     "$ref": "AlertTransportCollection"
+   },
+   "scopes": [
+    "https://www.googleapis.com/auth/userinfo.email"
+   ]
+  },
+  "alertendpoint.sender.list": {
+   "id": "alertendpoint.sender.list",
+   "returns": {
+    "$ref": "SenderCollection"
    },
    "scopes": [
     "https://www.googleapis.com/auth/userinfo.email"
