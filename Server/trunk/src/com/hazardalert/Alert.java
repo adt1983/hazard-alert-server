@@ -9,6 +9,7 @@ import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
@@ -20,7 +21,6 @@ import javax.persistence.Transient;
 import javax.persistence.TypedQuery;
 import javax.xml.bind.DatatypeConverter;
 
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Index;
 
 import com.google.android.gcm.server.Message;
@@ -37,8 +37,7 @@ import com.vividsolutions.jts.geom.Geometry;
 @Entity
 public class Alert {
 	@Id
-	@GeneratedValue(generator = "increment")
-	@GenericGenerator(name = "increment", strategy = "increment")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
 	@Index(name = "fullName")
@@ -185,7 +184,7 @@ public class Alert {
 				//q.setParameter(pi++, filter.getLimit().longValue());
 				q.setMaxResults((int) filter.getLimit().longValue());
 			}
-			return Util.returnList(q.getResultList());
+			return U.toNonNull(q.getResultList());
 		}
 		finally {
 			em.close();
@@ -195,17 +194,16 @@ public class Alert {
 	public List<String> findIntersectingGCM() {
 		EntityManager em = ApiKeyInitializer.createEntityManager();
 		try {
-			List<String> results = Util.returnList(em.createQuery(	"SELECT s.gcm FROM Subscription s, Alert a WHERE intersects(a.area.area, s.area.area) = true AND a.id = :id",
-																	String.class)
-														.setParameter("id", getId())
-														.getResultList());
+			List<String> results = U.toNonNull(em.createQuery(	"SELECT s.gcm FROM Subscription s, Alert a WHERE intersects(a.area.area, s.area.area) = true AND a.id = :id",
+																String.class)
+													.setParameter("id", getId())
+													.getResultList());
 			if (0 == results.size()) {
 				// check that we commited the alert and that it can at least find itself
-				new Assert(Util.returnList(em.createQuery(	"FROM Alert a WHERE intersects(a.area.area, a.area.area) = true AND a.id = :id",
-															Alert.class)
-												.setParameter("id", getId())
-												.getResultList())
-								.size() == 1);
+				new Assert(U.toNonNull(em.createQuery(	"FROM Alert a WHERE intersects(a.area.area, a.area.area) = true AND a.id = :id",
+														Alert.class)
+											.setParameter("id", getId())
+											.getResultList()).size() == 1);
 			}
 			return results;
 		}

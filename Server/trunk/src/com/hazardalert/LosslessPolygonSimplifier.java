@@ -7,10 +7,8 @@ import com.hazardalert.common.Assert;
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.Polygon;
-import com.vividsolutions.jts.geom.Polygonal;
 
 /*
- * TODO we are adding back in a bunch of "polygonlets" - worried this going to be pointless on large jagged polygons
  * http://gis.stackexchange.com/questions/75551/lossless-polygon-simplification
  */
 public class LosslessPolygonSimplifier {
@@ -44,7 +42,7 @@ public class LosslessPolygonSimplifier {
 	// TODO avoid creating triangles on long straight edges
 	public static Polygon simplifyInternal(Polygon original, double areaThreshold, double lineThreshold) {
 		GeometryFactory gf = new GeometryFactory();
-		Geometry excesses, excess, g, firstHalf, secondHalf, ch1, ch2, keep = null, elim = null;
+		Geometry excesses, excess, keepTotal, keepA, keepB, chA, chB, keep = null, elim = null;
 		Polygon simplified = null, wrapper = (Polygon) original.convexHull();
 		try {
 			boolean done = false;
@@ -54,30 +52,29 @@ public class LosslessPolygonSimplifier {
 				for (int i = 0; i < excesses.getNumGeometries(); i++) {
 					excess = excesses.getGeometryN(i);
 					if (excess.getArea() / original.getArea() > areaThreshold) {
-						done = false; // too big - try to split then shrink
-						g = excess.intersection(original);
-						firstHalf = gf.createGeometryCollection(null);
-						secondHalf = gf.createGeometryCollection(null);
-						for (int j = 0; j < g.getNumGeometries(); j++) {
-							if (j < g.getNumGeometries() / 2) {
-								firstHalf = firstHalf.union(g.getGeometryN(j));
+						done = false; // excess too big - try to split then shrink
+						keepTotal = excess.intersection(original);
+						keepA = gf.createGeometryCollection(null);
+						keepB = gf.createGeometryCollection(null);
+						for (int j = 0; j < keepTotal.getNumGeometries(); j++) {
+							if (j < keepTotal.getNumGeometries() / 2) {
+								keepA = keepA.union(keepTotal.getGeometryN(j));
 							}
 							else {
-								secondHalf = secondHalf.union(g.getGeometryN(j));
+								keepB = keepB.union(keepTotal.getGeometryN(j));
 							}
 						}
-						ch1 = firstHalf.convexHull();
-						ch2 = secondHalf.convexHull();
+						chA = keepA.convexHull();
+						chB = keepB.convexHull();
 						keep = gf.createMultiPolygon(null);
-						if (ch1 instanceof Polygonal) {
-							keep = keep.union(ch1);
+						if (chA instanceof Polygon) {
+							keep = keep.union(chA);
 						}
-						if (ch2 instanceof Polygonal) {
-							keep = keep.union(ch2);
+						if (chB instanceof Polygon) {
+							keep = keep.union(chB);
 						}
 						elim = excess.difference(keep);
 						wrapper = (Polygon) wrapper.difference(elim);
-						break;
 					}
 				}
 			}

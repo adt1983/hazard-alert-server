@@ -87,7 +87,7 @@ public class IngestAlertServlet extends TaskServlet {
 			}
 			if (null != capUrl) {
 				logger.info("Fetching: " + capUrl);
-				capXml = Util.loadUrl(capUrl);
+				capXml = U.loadUrl(capUrl);
 			}
 			if (capXml == null) {
 				throw new RuntimeException("capXml == null");
@@ -128,7 +128,7 @@ public class IngestAlertServlet extends TaskServlet {
 						List<Alert> toUpdate = em.createQuery("FROM Alert WHERE fullName = :fullName AND updatedBy IS NULL", Alert.class)
 													.setParameter("fullName", superceded)
 													.getResultList();
-						for (Alert updated : Util.returnList(toUpdate)) {
+						for (Alert updated : U.toNonNull(toUpdate)) {
 							updated.setUpdatedBy(alert);
 							em.merge(updated);
 						}

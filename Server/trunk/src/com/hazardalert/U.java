@@ -7,16 +7,16 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.logging.Logger;
 
-public abstract class Util {
-	private static final Logger logger = Logger.getLogger(Util.class.getName());
+import com.hazardalert.common.CommonUtil;
+
+public abstract class U extends CommonUtil {
+	private static final Logger logger = Logger.getLogger(U.class.getName());
 
 	private static final Charset UTF8 = Charset.forName("UTF-8");
 
-	private Util() {}
+	private U() {}
 
 	public final static String loadUrl(String capUrl) throws IOException {
 		URL url = new URL(capUrl);
@@ -51,12 +51,5 @@ public abstract class Util {
 		}
 		stream.close();
 		return sb.toString();
-	}
-
-	public static <T> List<T> returnList(List<T> results) {
-		if (null == results) {
-			results = new LinkedList<T>();
-		}
-		return results;
 	}
 }
