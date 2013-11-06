@@ -81,12 +81,12 @@ public class LosslessPolygonSimplifier {
 					}
 				}
 			}
+			new Assert(wrapper.getArea() >= original.getArea());
+			new Assert(wrapper.getArea() <= original.convexHull().getArea());
 			simplified = (Polygon) com.vividsolutions.jts.simplify.TopologyPreservingSimplifier.simplify(wrapper, lineThreshold);
 			new Assert(simplified.getNumPoints() <= original.getNumPoints());
-			new Assert(simplified.getNumPoints() >= original.convexHull().getNumPoints());
-			new Assert(simplified.getArea() >= original.getArea());
-			new Assert(simplified.getArea() <= original.convexHull().getArea());
 			new Assert(simplified.getNumInteriorRing() == 0);
+			new Assert(simplified.isSimple());
 			return simplified;
 		}
 		catch (Exception e) {
