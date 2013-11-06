@@ -1,13 +1,13 @@
 {
   "files": [
     {
-      "downloadUrl": "/downloads/alertendpoint/v1/20131106152156/java/1.16.0-rc/hazard_alert_appspot_com-alertendpoint-v1-20131106152156-java-1.16.0-rc-sources.jar", 
-      "path": "hazard_alert_appspot_com-alertendpoint-v1-20131106152156-java-1.16.0-rc-sources.jar", 
+      "downloadUrl": "/downloads/alertendpoint/v1/20131106202639/java/1.16.0-rc/hazard_alert_appspot_com-alertendpoint-v1-20131106202639-java-1.16.0-rc-sources.jar", 
+      "path": "hazard_alert_appspot_com-alertendpoint-v1-20131106202639-java-1.16.0-rc-sources.jar", 
       "type": "source", 
-      "timestamp": "2013-11-06 15:21"
+      "timestamp": "2013-11-06 20:26"
     }, 
     {
-      "path": "hazard_alert_appspot_com-alertendpoint-v1-20131106152156-java-1.16.0-rc.jar.properties", 
+      "path": "hazard_alert_appspot_com-alertendpoint-v1-20131106202639-java-1.16.0-rc.jar.properties", 
       "type": "android.properties"
     }
   ], 
@@ -701,5 +701,5 @@
   "version": "v1", 
   "language_version": "1.16.0-rc", 
   "id": "alertendpoint:v1", 
-  "revision": 20131106152156
+  "revision": 20131106202639
 }

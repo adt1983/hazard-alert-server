@@ -311,6 +311,10 @@ public class IngestAlertServlet extends TaskServlet {
 	}
 
 	private boolean isUseable(com.google.publicalerts.cap.Alert impl) {
+		if (null == Sender.find(impl.getSender())) {
+			logger.severe("Unrecognized sender!");
+			// still useable
+		}
 		if (impl.getScope() != com.google.publicalerts.cap.Alert.Scope.PUBLIC) {
 			logger.warning("scope != PUBLIC");
 			return false;

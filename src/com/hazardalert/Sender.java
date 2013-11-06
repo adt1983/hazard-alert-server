@@ -72,12 +72,10 @@ public class Sender {
 	public static Sender find(String sender) {
 		EntityManager em = ApiKeyInitializer.createEntityManager();
 		try {
-			try {
-				return em.createQuery("FROM Sender WHERE sender = :sender", Sender.class).setParameter("sender", sender).getSingleResult();
-			}
-			catch (NoResultException e) {
-				return null;
-			}
+			return em.createQuery("FROM Sender WHERE sender = :sender", Sender.class).setParameter("sender", sender).getSingleResult();
+		}
+		catch (NoResultException e) {
+			return null;
 		}
 		finally {
 			em.close();
