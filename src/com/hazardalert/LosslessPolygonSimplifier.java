@@ -100,20 +100,4 @@ public class LosslessPolygonSimplifier {
 			throw e;
 		}
 	}
-	/*
-	private static Polygon eliminateBowTies(Polygon input) {
-		if (input.isSimple()) {
-			return input;
-		}
-		GeometryFactory gf = new GeometryFactory();
-		Coordinate in[] = input.getCoordinates();
-		Coordinate points[] = new Coordinate[4];
-		for (int i = 0 ; i < in.length ; i++) {
-			points[0] = in[i + 0];
-			points[1] = in[i + 1];
-			points[2] = in[i + 2];
-			points[3] = in[i + 3];
-			LineString ls = gf.createLineString(points);
-		}
-	}*/
 }
