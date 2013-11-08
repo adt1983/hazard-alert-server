@@ -44,7 +44,7 @@ public class TestServlet extends BaseServlet {
 		Alert.Builder builder = Alert.newBuilder();
 		builder.setXmlns(CapValidator.CAP_LATEST_XMLNS) //
 				.setIdentifier("HAZARD-ALERT.APPSPOT.COM-TEST-" + Long.toString(new Date().getTime()))
-				.setSender("hsas@dhs.gov")
+				.setSender("roanokesoftware@gmail.com")
 				.setSent(CapUtil.formatCapDate(Calendar.getInstance()))
 				.setStatus(Alert.Status.TEST)
 				.setMsgType(Alert.MsgType.ALERT)
@@ -65,17 +65,17 @@ public class TestServlet extends BaseServlet {
 		Info.Builder builder = Info.newBuilder();
 		builder.addCategory(Info.Category.SECURITY) //
 				.addCategory(Info.Category.SAFETY)
-				.setEvent("Homeland Security Advisory System Update")
+				.setEvent("Event")
 				.setUrgency(Info.Urgency.FUTURE)
 				.setSeverity(Info.Severity.MODERATE)
 				.setCertainty(Info.Certainty.LIKELY)
 				.setEffective(CapUtil.formatCapDate(now))
 				.setExpires(CapUtil.formatCapDate(oneHourFromNow))
-				.setSenderName("Department of Homeland Security")
-				.setHeadline("Homeland Security Sets Code ORANGE")
-				.setDescription("DHS has set the threat level to ORANGE.")
-				.setInstruction("Take Protective Measures.")
-				.setWeb("http://www.dhs.gov/dhspublic/display?theme=29")
+				.setSenderName("Hazard Alert")
+				.setHeadline("Headline")
+				.setDescription("Description")
+				.setInstruction("Instruction")
+				.setWeb("http://www.google.com")
 				.addArea(buildArea());
 		return builder.build();
 	}

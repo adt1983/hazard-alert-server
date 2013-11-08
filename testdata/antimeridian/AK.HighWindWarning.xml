@@ -8,7 +8,8 @@
 	<msgType>Alert</msgType>
 	<scope>Public</scope>
 	<note>Alert for Western Aleutians (Alaska) Issued by the National
-		Weather Service</note>
+		Weather Service
+	</note>
 	<info>
 		<language>en-US</language>
 		<category>Met</category>
@@ -24,7 +25,8 @@
 		<expires>2013-11-06T12:00:00-09:00</expires>
 		<senderName>NWS Anchorage (Southern Alaska - Anchorage)</senderName>
 		<headline>High Wind Warning issued November 04 at 4:58AM AKST until
-			November 06 at 12:00PM AKST by NWS Anchorage</headline>
+			November 06 at 12:00PM AKST by NWS Anchorage
+		</headline>
 		<description>...POWERFUL LOW PRESSURE SYSTEM WILL BRING STRONG WINDS
 			TO THE WESTERN BERING SEA... .A LOW PRESSURE SYSTEM WILL RAPIDLY
 			DEEPEN THIS AFTERNOON AS IT APPROACHES THE WESTERN ALEUTIANS. THE
@@ -62,7 +64,8 @@
 				51.97496,179.78189 51.96692,179.78804 51.96458,179.78821
 				51.3749,179.47784 51.37312,179.47556 51.36834,179.46324
 				51.36745,179.46059 51.3578,179.40836 51.35735,179.40553
-				51.34951,179.25171 51.21724,-179.11459</polygon>
+				51.34951,179.25171 51.21724,-179.11459
+			</polygon>
 		</area>
 	</info>
 </alert>

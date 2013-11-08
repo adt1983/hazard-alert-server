@@ -24,7 +24,6 @@ import javax.persistence.Persistence;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import com.google.appengine.api.NamespaceManager;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -76,30 +75,7 @@ public class ApiKeyInitializer implements ServletContextListener {
 		logger.info("Registering Objectify entities...");
 		ObjectifyService.register(Fips.class);
 		ObjectifyService.register(MulticastMessage.class);
-		String prodNamespace = NamespaceManager.get();
-		NamespaceManager.set("test.hazard-alert.appspot.com");
-		try {
-			logger.info("Running tests...");
-			doTests();
-			logger.info("All tests passed.");
-		}
-		catch (Exception e) {
-			logger.log(Level.SEVERE, "TESTS FAILED!", e);
-			// eat it
-		}
-		finally {
-			NamespaceManager.set(prodNamespace);
-		}
 	}
-
-	private void doTests() {
-		doObjectifyTests();
-	}
-
-	//TODO: tests can sometimes fail due to eventual consistency of datastore
-	// memcache seems to have improved the situation
-	// need more research on a testing framework
-	private void doObjectifyTests() {}
 
 	@Override
 	public void contextDestroyed(ServletContextEvent event) {
