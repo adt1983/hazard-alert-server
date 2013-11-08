@@ -50,27 +50,6 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
-    "alertendpoint.alert.find" : {
-      "path" : "alertFind",
-      "httpMethod" : "POST",
-      "authLevel" : "NONE",
-      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
-      "audiences" : [ ],
-      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
-      "rosyMethod" : "com.hazardalert.AlertEndpoint.alertFind",
-      "request" : {
-        "parameters" : {
-          "fullName" : {
-            "type" : "string",
-            "required" : false
-          }
-        },
-        "body" : "empty"
-      },
-      "response" : {
-        "body" : "autoTemplate(backendResponse)"
-      }
-    },
     "alertendpoint.subscription.get" : {
       "path" : "subscriptionGet/{id}",
       "httpMethod" : "POST",
@@ -84,6 +63,27 @@
           "id" : {
             "type" : "int64",
             "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "alertendpoint.alert.find" : {
+      "path" : "alertFind",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.hazardalert.AlertEndpoint.alertFind",
+      "request" : {
+        "parameters" : {
+          "fullName" : {
+            "type" : "string",
+            "required" : false
           }
         },
         "body" : "empty"
@@ -220,6 +220,9 @@
         "id" : "AlertTransport",
         "type" : "object",
         "properties" : {
+          "sourceUrl" : {
+            "type" : "string"
+          },
           "payload" : {
             "type" : "string"
           }
@@ -276,29 +279,43 @@
             "format" : "int64"
           },
           "severity" : {
-            "$ref" : "Longs"
+            "type" : "array",
+            "items" : {
+              "type" : "string",
+              "format" : "int64"
+            }
           },
           "certainty" : {
-            "$ref" : "Longs"
+            "type" : "array",
+            "items" : {
+              "type" : "string",
+              "format" : "int64"
+            }
           },
           "urgency" : {
-            "$ref" : "Longs"
+            "type" : "array",
+            "items" : {
+              "type" : "string",
+              "format" : "int64"
+            }
           },
           "status" : {
-            "$ref" : "Longs"
+            "type" : "array",
+            "items" : {
+              "type" : "string",
+              "format" : "int64"
+            }
+          },
+          "senders" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string",
+              "format" : "int64"
+            }
           },
           "limit" : {
             "type" : "string",
             "format" : "int64"
-          }
-        }
-      },
-      "Longs" : {
-        "id" : "Longs",
-        "type" : "object",
-        "properties" : {
-          "empty" : {
-            "type" : "boolean"
           }
         }
       },
@@ -346,14 +363,14 @@
           "$ref" : "AlertTransportCollection"
         }
       },
-      "com.hazardalert.AlertEndpoint.alertFind" : {
-        "response" : {
-          "$ref" : "AlertTransport"
-        }
-      },
       "com.hazardalert.AlertEndpoint.subscriptionGet" : {
         "response" : {
           "$ref" : "Subscription"
+        }
+      },
+      "com.hazardalert.AlertEndpoint.alertFind" : {
+        "response" : {
+          "$ref" : "AlertTransport"
         }
       },
       "com.hazardalert.AlertEndpoint.listAlert" : {

@@ -1,6 +1,6 @@
 {
  "kind": "discovery#restDescription",
- "etag": "\"doS0mIKix6_L3_LoT-sZZjofha4/L7W8CGUnjNJ46IgWJZV7n3d6ODI\"",
+ "etag": "\"doS0mIKix6_L3_LoT-sZZjofha4/8cwKk5ZX_xKEvRaBmFpTlpbEHUs\"",
  "discoveryVersion": "v1",
  "id": "alertendpoint:v1",
  "name": "alertendpoint",
@@ -76,7 +76,11 @@
    "type": "object",
    "properties": {
     "certainty": {
-     "$ref": "Longs"
+     "type": "array",
+     "items": {
+      "type": "string",
+      "format": "int64"
+     }
     },
     "exclude": {
      "$ref": "Bounds"
@@ -96,14 +100,33 @@
      "type": "string",
      "format": "int64"
     },
+    "senders": {
+     "type": "array",
+     "items": {
+      "type": "string",
+      "format": "int64"
+     }
+    },
     "severity": {
-     "$ref": "Longs"
+     "type": "array",
+     "items": {
+      "type": "string",
+      "format": "int64"
+     }
     },
     "status": {
-     "$ref": "Longs"
+     "type": "array",
+     "items": {
+      "type": "string",
+      "format": "int64"
+     }
     },
     "urgency": {
-     "$ref": "Longs"
+     "type": "array",
+     "items": {
+      "type": "string",
+      "format": "int64"
+     }
     }
    }
   },
@@ -112,6 +135,9 @@
    "type": "object",
    "properties": {
     "payload": {
+     "type": "string"
+    },
+    "sourceUrl": {
      "type": "string"
     }
    }
@@ -147,15 +173,6 @@
     "sw_lng": {
      "type": "number",
      "format": "double"
-    }
-   }
-  },
-  "Longs": {
-   "id": "Longs",
-   "type": "object",
-   "properties": {
-    "empty": {
-     "type": "boolean"
     }
    }
   },

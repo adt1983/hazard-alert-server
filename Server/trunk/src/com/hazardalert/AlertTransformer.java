@@ -12,6 +12,7 @@ public class AlertTransformer implements Transformer<Alert, AlertTransport> {
 
 	@Override
 	public AlertTransport transformTo(Alert a) {
-		return new AlertTransport().setPayload(javax.xml.bind.DatatypeConverter.printBase64Binary(a.getAlert().toByteArray()));
+		return new AlertTransport().setSourceUrl(a.getSourceUrl())
+									.setPayload(javax.xml.bind.DatatypeConverter.printBase64Binary(a.getAlert().toByteArray()));
 	}
 }

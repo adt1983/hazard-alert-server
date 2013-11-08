@@ -16,12 +16,15 @@ import javax.xml.bind.DatatypeConverter;
 
 import com.google.appengine.api.taskqueue.TaskOptions;
 import com.google.appengine.api.taskqueue.TaskOptions.Method;
+import com.google.apphosting.api.ApiProxy;
 import com.google.publicalerts.cap.Alert.MsgType;
 import com.google.publicalerts.cap.Area;
+import com.google.publicalerts.cap.CapException;
 import com.google.publicalerts.cap.CapException.Reason;
 import com.google.publicalerts.cap.CapXmlBuilder;
 import com.google.publicalerts.cap.Circle;
 import com.google.publicalerts.cap.Info;
+import com.google.publicalerts.cap.NotCapException;
 import com.google.publicalerts.cap.ValuePair;
 import com.google.publicalerts.cap.feed.CapFeedParser;
 import com.google.publicalerts.cap.profile.GoogleProfile;
@@ -94,7 +97,15 @@ public class IngestAlertServlet extends TaskServlet {
 			}
 			capXml = capXml.trim().replaceFirst("^([\\W]+)<", "<"); // http://stackoverflow.com/questions/3030903/content-is-not-allowed-in-prolog-when-parsing-perfectly-valid-xml-on-gae
 			logger.info("Ingesting:\n" + capXml);
-			com.google.publicalerts.cap.Alert external = parser.parseAlert(capXml); // rethrow FatalException if this throws?
+			ApiProxy.flushLogs(); // flush to aid debugging HardDeadlineExceptions
+			com.google.publicalerts.cap.Alert external = null;
+			try {
+				external = parser.parseAlert(capXml);
+			}
+			catch (CapException | NotCapException e) {
+				logger.log(Level.WARNING, "Failed to parse CAP: ", e); // Only a warning to distinguish upstream/application errors?
+				return;
+			}
 			Alert existingAlert = Alert.find(Alert.getFullName(external));
 			if (null != existingAlert) {
 				// Alert with this fullName already exists, check that they are exact duplicates?
@@ -116,6 +127,9 @@ public class IngestAlertServlet extends TaskServlet {
 				return;
 			}
 			Alert alert = new Alert(internal);
+			if (null != capUrl) {
+				alert.setSourceUrl(capUrl);
+			}
 			/* Valid Alert. Persist. Check for updates. Push. 
 			 */
 			EntityManager em = ApiKeyInitializer.createEntityManager();

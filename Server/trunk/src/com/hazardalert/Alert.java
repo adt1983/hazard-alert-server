@@ -41,7 +41,7 @@ public class Alert {
 	private Long id;
 
 	@Index(name = "fullName")
-	@Column(nullable = false)
+	@Column(unique = true, nullable = false)
 	private String fullName; // extended message identifier in form "<sender>,<identifier>,<sent>"
 
 	@Index(name = "expires")
@@ -52,6 +52,8 @@ public class Alert {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "effective")
 	private Date effective;
+
+	private String sourceUrl;
 
 	@ManyToOne
 	private Alert updatedBy;
@@ -261,5 +263,13 @@ public class Alert {
 
 	public static String getFullName(com.google.publicalerts.cap.Alert alert) {
 		return alert.getSender() + "," + alert.getIdentifier() + "," + alert.getSent();
+	}
+
+	public String getSourceUrl() {
+		return sourceUrl;
+	}
+
+	public void setSourceUrl(String sourceUrl) {
+		this.sourceUrl = sourceUrl;
 	}
 }

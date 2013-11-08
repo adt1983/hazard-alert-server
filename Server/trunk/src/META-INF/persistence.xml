@@ -10,8 +10,9 @@
 		<class>com.hazardalert.Area</class>
 		<class>com.hazardalert.Alert</class>
 		<class>com.hazardalert.Subscription</class>
+		<exclude-unlisted-classes>true</exclude-unlisted-classes> <!-- Avoid HardDeadlineException -->
 		<properties>
-			<!-- com.google.appengine.api.rdbms.AppEngineDriver -->
+			<!-- com.google.appengine.api.rdbms.AppEngineDriver ??? -->
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.GoogleDriver" />
 			<property name="javax.persistence.jdbc.url"
 				value="jdbc:google:mysql://hazard-alert-gae:hadb0/hadb0?user=root" />
@@ -30,8 +31,4 @@
 			<property name="hibernate.connection.pool_size" value="0" />
 		</properties>
 	</persistence-unit>
-	<!-- <persistence-unit name="transactions-optional"> <provider>org.datanucleus.api.jpa.PersistenceProviderImpl</provider> 
-		<properties> <property name="datanucleus.NontransactionalRead" value="true" 
-		/> <property name="datanucleus.NontransactionalWrite" value="true" /> <property 
-		name="datanucleus.ConnectionURL" value="appengine" /> </properties> </persistence-unit> -->
 </persistence>
