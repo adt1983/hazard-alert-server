@@ -9,6 +9,7 @@
         </description>
 		<class>com.hazardalert.Area</class>
 		<class>com.hazardalert.Alert</class>
+		<class>com.hazardalert.Sender</class>
 		<class>com.hazardalert.Subscription</class>
 		<exclude-unlisted-classes>true</exclude-unlisted-classes> <!-- Avoid HardDeadlineException -->
 		<properties>
