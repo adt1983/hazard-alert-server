@@ -1,0 +1,13 @@
+<queue-entries>
+	<!-- Size 1 buckets to minimize instances -->
+	<queue>
+		<name>gcm</name>
+		<rate>5/s</rate>
+		<bucket-size>1</bucket-size>
+	</queue>
+	<queue>
+		<name>ingest</name>
+		<rate>5/s</rate>
+		<bucket-size>1</bucket-size>
+	</queue>
+</queue-entries>

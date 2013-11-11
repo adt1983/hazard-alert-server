@@ -43,6 +43,8 @@ public class LosslessPolygonSimplifier {
 	public static Polygon simplifyInternal(Polygon original, double areaThreshold, double lineThreshold) {
 		GeometryFactory gf = new GeometryFactory();
 		Geometry excesses, excess, keepTotal, keepA, keepB, chA, chB, keep = null, elim = null;
+		// pre-strip straight lines to avoid pathological time case
+		original = (Polygon) com.vividsolutions.jts.simplify.TopologyPreservingSimplifier.simplify(original, lineThreshold);
 		Polygon simplified = null, wrapper = (Polygon) original.convexHull();
 		try {
 			boolean done = false;

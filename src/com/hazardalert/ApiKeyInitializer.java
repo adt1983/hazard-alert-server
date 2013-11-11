@@ -50,7 +50,7 @@ public class ApiKeyInitializer implements ServletContextListener {
 
 	@Override
 	public void contextInitialized(ServletContextEvent event) {
-		logger.info("contextInitialized");
+		logger.info("contextInitialized: BEGIN");
 		emf = Persistence.createEntityManagerFactory("com.hazardalert.jpa");
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 		Key key = KeyFactory.createKey(ENTITY_KIND, ENTITY_KEY);
@@ -75,6 +75,7 @@ public class ApiKeyInitializer implements ServletContextListener {
 		logger.info("Registering Objectify entities...");
 		ObjectifyService.register(Fips.class);
 		ObjectifyService.register(MulticastMessage.class);
+		logger.info("contextInitialized: END");
 	}
 
 	@Override

@@ -12,7 +12,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
 import javax.persistence.NoResultException;
 import javax.persistence.PostLoad;
 import javax.persistence.Temporal;
@@ -55,8 +54,8 @@ public class Alert {
 
 	private String sourceUrl;
 
-	@ManyToOne
-	private Alert updatedBy;
+	@Column(nullable = true)
+	private String updatedByFullName;
 
 	@Embedded
 	private Area area;
@@ -127,12 +126,12 @@ public class Alert {
 		this.effective = effective;
 	}
 
-	public Alert getUpdatedBy() {
-		return updatedBy;
+	public String getUpdatedBy() {
+		return updatedByFullName;
 	}
 
-	public void setUpdatedBy(Alert updatedBy) {
-		this.updatedBy = updatedBy;
+	public void setUpdatedBy(String updatedBy) {
+		this.updatedByFullName = updatedBy;
 	}
 
 	public com.google.publicalerts.cap.Alert getAlert() {
