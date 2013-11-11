@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="copyCloudEndpoints" default="copy">
 	<target name="copy">
+		<delete dir="../../HazardAlert/endpoint-libs" verbose="true" />
 		<copy todir="../../HazardAlert/endpoint-libs" verbose="true">
 			<fileset
 				dir="../endpoint-libs/libalertendpoint-v1/alertendpoint/alertendpoint-v1-generated-source" />
