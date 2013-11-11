@@ -16,7 +16,6 @@ import javax.xml.bind.DatatypeConverter;
 
 import com.google.appengine.api.taskqueue.TaskOptions;
 import com.google.appengine.api.taskqueue.TaskOptions.Method;
-import com.google.apphosting.api.ApiProxy;
 import com.google.publicalerts.cap.Alert.MsgType;
 import com.google.publicalerts.cap.Area;
 import com.google.publicalerts.cap.CapException;
@@ -97,13 +96,20 @@ public class IngestAlertServlet extends TaskServlet {
 			}
 			capXml = capXml.trim().replaceFirst("^([\\W]+)<", "<"); // http://stackoverflow.com/questions/3030903/content-is-not-allowed-in-prolog-when-parsing-perfectly-valid-xml-on-gae
 			logger.info("Ingesting:\n" + capXml);
-			ApiProxy.flushLogs(); // flush to aid debugging HardDeadlineExceptions
+			/* FIXME
+			 * Either this or a Java7 multi-catch BLEW UP production. Avoid until we have a legit testing environment.
+			 * ApiProxy.flushLogs(); // flush to aid debugging HardDeadlineExceptions
+			 */
 			com.google.publicalerts.cap.Alert external = null;
 			try {
 				external = parser.parseAlert(capXml);
 			}
-			catch (CapException | NotCapException e) {
+			catch (CapException e) {
 				logger.log(Level.WARNING, "Failed to parse CAP: ", e); // Only a warning to distinguish upstream/application errors?
+				return;
+			}
+			catch (NotCapException e) {
+				logger.log(Level.WARNING, "Failed to parse CAP: ", e);
 				return;
 			}
 			Alert existingAlert = Alert.find(Alert.getFullName(external));
@@ -139,11 +145,12 @@ public class IngestAlertServlet extends TaskServlet {
 				if (internal.getMsgType() == MsgType.CANCEL || internal.getMsgType() == MsgType.UPDATE) {
 					for (String superceded : internal.getReferences().getValueList()) {
 						logger.info("Supercede:\nnew: " + alert.getFullName() + "\nold: " + superceded);
-						List<Alert> toUpdate = em.createQuery("FROM Alert WHERE fullName = :fullName AND updatedBy IS NULL", Alert.class)
+						List<Alert> toUpdate = em.createQuery(	"FROM Alert WHERE fullName = :fullName AND updatedByFullName IS NULL",
+																Alert.class)
 													.setParameter("fullName", superceded)
 													.getResultList();
 						for (Alert updated : U.toNonNull(toUpdate)) {
-							updated.setUpdatedBy(alert);
+							updated.setUpdatedBy(alert.getFullName());
 							em.merge(updated);
 						}
 					}

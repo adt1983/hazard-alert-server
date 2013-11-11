@@ -1,0 +1,428 @@
+{
+ "kind": "discovery#restDescription",
+ "etag": "\"doS0mIKix6_L3_LoT-sZZjofha4/8cwKk5ZX_xKEvRaBmFpTlpbEHUs\"",
+ "discoveryVersion": "v1",
+ "id": "alertendpoint:v1",
+ "name": "alertendpoint",
+ "version": "v1",
+ "description": "This is an API",
+ "icons": {
+  "x16": "http://www.google.com/images/icons/product/search-16.gif",
+  "x32": "http://www.google.com/images/icons/product/search-32.gif"
+ },
+ "protocol": "rest",
+ "baseUrl": "https://hazard-alert.appspot.com/_ah/api/alertendpoint/v1/",
+ "basePath": "/_ah/api/alertendpoint/v1/",
+ "rootUrl": "https://hazard-alert.appspot.com/_ah/api/",
+ "servicePath": "alertendpoint/v1/",
+ "batchPath": "batch",
+ "parameters": {
+  "alt": {
+   "type": "string",
+   "description": "Data format for the response.",
+   "default": "json",
+   "enum": [
+    "json"
+   ],
+   "enumDescriptions": [
+    "Responses with Content-Type of application/json"
+   ],
+   "location": "query"
+  },
+  "fields": {
+   "type": "string",
+   "description": "Selector specifying which fields to include in a partial response.",
+   "location": "query"
+  },
+  "key": {
+   "type": "string",
+   "description": "API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.",
+   "location": "query"
+  },
+  "oauth_token": {
+   "type": "string",
+   "description": "OAuth 2.0 token for the current user.",
+   "location": "query"
+  },
+  "prettyPrint": {
+   "type": "boolean",
+   "description": "Returns response with indentations and line breaks.",
+   "default": "true",
+   "location": "query"
+  },
+  "quotaUser": {
+   "type": "string",
+   "description": "Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided.",
+   "location": "query"
+  },
+  "userIp": {
+   "type": "string",
+   "description": "IP address of the site where the request originates. Use this if you want to enforce per-user limits.",
+   "location": "query"
+  }
+ },
+ "auth": {
+  "oauth2": {
+   "scopes": {
+    "https://www.googleapis.com/auth/userinfo.email": {
+     "description": "View your email address"
+    }
+   }
+  }
+ },
+ "schemas": {
+  "AlertFilter": {
+   "id": "AlertFilter",
+   "type": "object",
+   "properties": {
+    "certainty": {
+     "type": "array",
+     "items": {
+      "type": "string",
+      "format": "int64"
+     }
+    },
+    "exclude": {
+     "$ref": "Bounds"
+    },
+    "include": {
+     "$ref": "Bounds"
+    },
+    "limit": {
+     "type": "string",
+     "format": "int64"
+    },
+    "minEffective": {
+     "type": "string",
+     "format": "int64"
+    },
+    "minExpires": {
+     "type": "string",
+     "format": "int64"
+    },
+    "senders": {
+     "type": "array",
+     "items": {
+      "type": "string",
+      "format": "int64"
+     }
+    },
+    "severity": {
+     "type": "array",
+     "items": {
+      "type": "string",
+      "format": "int64"
+     }
+    },
+    "status": {
+     "type": "array",
+     "items": {
+      "type": "string",
+      "format": "int64"
+     }
+    },
+    "urgency": {
+     "type": "array",
+     "items": {
+      "type": "string",
+      "format": "int64"
+     }
+    }
+   }
+  },
+  "AlertTransport": {
+   "id": "AlertTransport",
+   "type": "object",
+   "properties": {
+    "payload": {
+     "type": "string"
+    },
+    "sourceUrl": {
+     "type": "string"
+    }
+   }
+  },
+  "AlertTransportCollection": {
+   "id": "AlertTransportCollection",
+   "type": "object",
+   "properties": {
+    "items": {
+     "type": "array",
+     "items": {
+      "$ref": "AlertTransport"
+     }
+    }
+   }
+  },
+  "Bounds": {
+   "id": "Bounds",
+   "type": "object",
+   "properties": {
+    "ne_lat": {
+     "type": "number",
+     "format": "double"
+    },
+    "ne_lng": {
+     "type": "number",
+     "format": "double"
+    },
+    "sw_lat": {
+     "type": "number",
+     "format": "double"
+    },
+    "sw_lng": {
+     "type": "number",
+     "format": "double"
+    }
+   }
+  },
+  "Sender": {
+   "id": "Sender",
+   "type": "object",
+   "properties": {
+    "id": {
+     "type": "string",
+     "format": "int64"
+    },
+    "name": {
+     "type": "string"
+    },
+    "sender": {
+     "type": "string"
+    },
+    "suppress": {
+     "type": "boolean"
+    },
+    "url": {
+     "type": "string"
+    }
+   }
+  },
+  "SenderCollection": {
+   "id": "SenderCollection",
+   "type": "object",
+   "properties": {
+    "items": {
+     "type": "array",
+     "items": {
+      "$ref": "Sender"
+     }
+    }
+   }
+  },
+  "Subscription": {
+   "id": "Subscription",
+   "type": "object",
+   "properties": {
+    "bounds": {
+     "$ref": "Bounds"
+    },
+    "expires": {
+     "type": "string",
+     "format": "date-time"
+    },
+    "gcm": {
+     "type": "string"
+    },
+    "id": {
+     "type": "string",
+     "format": "int64"
+    }
+   }
+  }
+ },
+ "resources": {
+  "alert": {
+   "methods": {
+    "find": {
+     "id": "alertendpoint.alert.find",
+     "path": "alertFind",
+     "httpMethod": "POST",
+     "parameters": {
+      "fullName": {
+       "type": "string",
+       "location": "query"
+      }
+     },
+     "response": {
+      "$ref": "AlertTransport"
+     },
+     "scopes": [
+      "https://www.googleapis.com/auth/userinfo.email"
+     ]
+    },
+    "get": {
+     "id": "alertendpoint.alert.get",
+     "path": "alert/{id}",
+     "httpMethod": "GET",
+     "parameters": {
+      "id": {
+       "type": "string",
+       "required": true,
+       "format": "int64",
+       "location": "path"
+      }
+     },
+     "parameterOrder": [
+      "id"
+     ],
+     "response": {
+      "$ref": "AlertTransport"
+     },
+     "scopes": [
+      "https://www.googleapis.com/auth/userinfo.email"
+     ]
+    },
+    "list": {
+     "id": "alertendpoint.alert.list",
+     "path": "alert",
+     "httpMethod": "POST",
+     "request": {
+      "$ref": "AlertFilter",
+      "parameterName": "resource"
+     },
+     "response": {
+      "$ref": "AlertTransportCollection"
+     },
+     "scopes": [
+      "https://www.googleapis.com/auth/userinfo.email"
+     ]
+    },
+    "updateSubscription": {
+     "id": "alertendpoint.alert.updateSubscription",
+     "path": "alertcollection/{id}/{gcm}",
+     "httpMethod": "PUT",
+     "parameters": {
+      "gcm": {
+       "type": "string",
+       "required": true,
+       "location": "path"
+      },
+      "id": {
+       "type": "string",
+       "required": true,
+       "format": "int64",
+       "location": "path"
+      }
+     },
+     "parameterOrder": [
+      "id",
+      "gcm"
+     ],
+     "request": {
+      "$ref": "Bounds",
+      "parameterName": "resource"
+     },
+     "response": {
+      "$ref": "AlertTransportCollection"
+     },
+     "scopes": [
+      "https://www.googleapis.com/auth/userinfo.email"
+     ]
+    }
+   }
+  },
+  "sender": {
+   "methods": {
+    "list": {
+     "id": "alertendpoint.sender.list",
+     "path": "senderList",
+     "httpMethod": "POST",
+     "response": {
+      "$ref": "SenderCollection"
+     },
+     "scopes": [
+      "https://www.googleapis.com/auth/userinfo.email"
+     ]
+    }
+   }
+  },
+  "subscription": {
+   "methods": {
+    "create": {
+     "id": "alertendpoint.subscription.create",
+     "path": "createSubscription/{gcm}/{expires}",
+     "httpMethod": "POST",
+     "parameters": {
+      "expires": {
+       "type": "string",
+       "required": true,
+       "format": "int64",
+       "location": "path"
+      },
+      "gcm": {
+       "type": "string",
+       "required": true,
+       "location": "path"
+      }
+     },
+     "parameterOrder": [
+      "gcm",
+      "expires"
+     ],
+     "request": {
+      "$ref": "Bounds",
+      "parameterName": "resource"
+     },
+     "response": {
+      "$ref": "Subscription"
+     },
+     "scopes": [
+      "https://www.googleapis.com/auth/userinfo.email"
+     ]
+    },
+    "get": {
+     "id": "alertendpoint.subscription.get",
+     "path": "subscriptionGet/{id}",
+     "httpMethod": "POST",
+     "parameters": {
+      "id": {
+       "type": "string",
+       "required": true,
+       "format": "int64",
+       "location": "path"
+      }
+     },
+     "parameterOrder": [
+      "id"
+     ],
+     "response": {
+      "$ref": "Subscription"
+     },
+     "scopes": [
+      "https://www.googleapis.com/auth/userinfo.email"
+     ]
+    },
+    "updateExpires": {
+     "id": "alertendpoint.subscription.updateExpires",
+     "path": "subscriptionUpdateExpires/{id}/{expires}",
+     "httpMethod": "POST",
+     "parameters": {
+      "expires": {
+       "type": "string",
+       "required": true,
+       "format": "int64",
+       "location": "path"
+      },
+      "id": {
+       "type": "string",
+       "required": true,
+       "format": "int64",
+       "location": "path"
+      }
+     },
+     "parameterOrder": [
+      "id",
+      "expires"
+     ],
+     "response": {
+      "$ref": "Subscription"
+     },
+     "scopes": [
+      "https://www.googleapis.com/auth/userinfo.email"
+     ]
+    }
+   }
+  }
+ }
+}

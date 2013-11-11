@@ -5,7 +5,7 @@
 	version="2.0">
 	<persistence-unit name="com.hazardalert.jpa">
 		<description>
-            Cloud SQL Hibernate tutorial
+            Hazard Alert
         </description>
 		<class>com.hazardalert.Area</class>
 		<class>com.hazardalert.Alert</class>
@@ -30,6 +30,7 @@
 			<property name="hibernate.hbm2ddl.auto" value="update" />
 			<!-- Set this to 0 otherwise you sometimes get errors -->
 			<property name="hibernate.connection.pool_size" value="0" />
+			<property name="javax.persistence.lock.timeout" value="60000" />
 		</properties>
 	</persistence-unit>
 </persistence>
