@@ -27,7 +27,9 @@ import com.google.publicalerts.cap.NotCapException;
 import com.google.publicalerts.cap.ValuePair;
 import com.google.publicalerts.cap.feed.CapFeedParser;
 import com.google.publicalerts.cap.profile.GoogleProfile;
+import com.hazardalert.common.Bounds;
 import com.hazardalert.common.CommonUtil;
+import com.hazardalert.common.Point;
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.GeometryCollection;
 import com.vividsolutions.jts.geom.GeometryFactory;
@@ -263,13 +265,18 @@ public class IngestAlertServlet extends TaskServlet {
 			}
 			info.clearParameter(); // strip params b/c we don't (yet) know how to handle them downstream
 			for (Area.Builder area : info.getAreaBuilderList()) {
-				/*
-				 * Convert everything to a <polygon>
+				/* Convert everything to a <polygon>
 				 */
 				List<com.google.publicalerts.cap.Polygon> polygons = new LinkedList<com.google.publicalerts.cap.Polygon>();
 				for (Circle circle : area.getCircleList()) {
 					if (circle.getRadius() > 0.001) { // > 1m
 						polygons.add(CommonUtil.toPolygon(circle));
+					}
+					else {
+						// create a small 10m x 10m area so we can display on map
+						Point center = new Point(circle.getPoint());
+						Bounds b = new Bounds(CommonUtil.getBoundingBox(center, 0.01));
+						polygons.add(CommonUtil.toPolygonCap(b.toPolygon()));
 					}
 				}
 				area.clearCircle();

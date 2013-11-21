@@ -82,6 +82,7 @@ public class AlertEndpoint {
 
 	@ApiMethod(name = "alert.updateSubscription")
 	public List<Alert> updateSubscription(@Named("id") Long id, @Named("gcm") String gcm, Bounds bounds) {
+		logger.info("\nid: " + id + "\ngcm: " + gcm + "\nbounds: " + bounds.toString());
 		Subscription s = Subscription.get(id);
 		Bounds oldBounds = s.getBounds();
 		EntityManager em = ApiKeyInitializer.createEntityManager();
