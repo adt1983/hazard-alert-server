@@ -368,19 +368,6 @@ public class IngestAlertServlet extends TaskServlet {
 			logger.warning("No Area");
 			return false;
 		}
-		// past alert?
-		boolean actionRequired = false;
-		for (com.google.publicalerts.cap.Info i : impl.getInfoList()) {
-			if (i.getUrgency() == Info.Urgency.IMMEDIATE || i.getUrgency() == Info.Urgency.EXPECTED
-					|| i.getUrgency() == Info.Urgency.FUTURE || i.getUrgency() == Info.Urgency.UNKNOWN_URGENCY) {
-				actionRequired = true;
-				break;
-			}
-		}
-		if (!actionRequired) {
-			logger.warning("No action required");
-			return false;
-		}
 		return true;
 	}
 }
