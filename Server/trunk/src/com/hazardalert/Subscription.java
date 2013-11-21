@@ -52,6 +52,11 @@ public class Subscription {
 		this.expires = new Date(expires.longValue());
 	}
 
+	@Override
+	public String toString() {
+		return "id: " + (null == id ? "" : id) + "\ngcm: " + gcm + "\narea: " + area.getArea().toText();
+	}
+
 	public Long getId() {
 		return id;
 	}

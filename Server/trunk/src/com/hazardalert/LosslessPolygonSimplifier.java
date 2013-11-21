@@ -54,7 +54,6 @@ public class LosslessPolygonSimplifier {
 				for (int i = 0; i < excesses.getNumGeometries(); i++) {
 					excess = excesses.getGeometryN(i);
 					if (excess.getArea() / original.getArea() > areaThreshold) {
-						done = false; // excess too big - try to split then shrink
 						keepTotal = excess.intersection(original);
 						keepA = gf.createGeometryCollection(null);
 						keepB = gf.createGeometryCollection(null);
@@ -76,12 +75,15 @@ public class LosslessPolygonSimplifier {
 							keep = keep.union(chB);
 						}
 						elim = excess.difference(keep);
-						wrapper = (Polygon) wrapper.difference(elim);
+						if (!elim.isEmpty()) {
+							wrapper = (Polygon) wrapper.difference(elim);
+							done = false; // successfully eliminated an excess - keep going
+						}
 					}
 				}
 			}
-			new Assert(wrapper.getArea() >= original.getArea());
-			new Assert(wrapper.getArea() <= original.convexHull().getArea());
+			new Assert(wrapper.getArea() >= 0.99999 * original.getArea());
+			new Assert(wrapper.getArea() <= 1.00001 * original.convexHull().getArea());
 			simplified = (Polygon) com.vividsolutions.jts.simplify.TopologyPreservingSimplifier.simplify(wrapper, lineThreshold);
 			new Assert(simplified.getNumPoints() <= original.getNumPoints());
 			new Assert(simplified.getNumInteriorRing() == 0);

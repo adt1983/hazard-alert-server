@@ -1,0 +1,409 @@
+{
+  "extends" : "thirdParty.api",
+  "abstract" : false,
+  "root" : "https://hazard-alert.appspot.com/_ah/api",
+  "name" : "alertendpoint",
+  "version" : "v1",
+  "defaultVersion" : false,
+  "adapter" : {
+    "bns" : "https://hazard-alert.appspot.com/_ah/spi",
+    "deadline" : 10.0,
+    "type" : "lily"
+  },
+  "auth" : {
+    "allowCookieAuth" : false
+  },
+  "frontendLimits" : {
+    "unregisteredUserQps" : -1,
+    "unregisteredQps" : -1,
+    "unregisteredDaily" : -1,
+    "rules" : [ ]
+  },
+  "cacheControl" : {
+    "type" : "no-cache",
+    "maxAge" : 0
+  },
+  "methods" : {
+    "alertendpoint.alert.updateSubscription" : {
+      "path" : "alertcollection/{id}/{gcm}",
+      "httpMethod" : "PUT",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.hazardalert.AlertEndpoint.updateSubscription",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          },
+          "gcm" : {
+            "type" : "string",
+            "required" : true
+          }
+        },
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "alertendpoint.subscription.get" : {
+      "path" : "subscriptionGet/{id}",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.hazardalert.AlertEndpoint.subscriptionGet",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "alertendpoint.alert.find" : {
+      "path" : "alertFind",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.hazardalert.AlertEndpoint.alertFind",
+      "request" : {
+        "parameters" : {
+          "fullName" : {
+            "type" : "string",
+            "required" : false
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "alertendpoint.alert.list" : {
+      "path" : "alert",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.hazardalert.AlertEndpoint.listAlert",
+      "request" : {
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "alertendpoint.subscription.create" : {
+      "path" : "createSubscription/{gcm}/{expires}",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.hazardalert.AlertEndpoint.createSubscription",
+      "request" : {
+        "parameters" : {
+          "gcm" : {
+            "type" : "string",
+            "required" : true
+          },
+          "expires" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "autoTemplate(backendRequest)",
+        "bodyName" : "resource"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "alertendpoint.sender.list" : {
+      "path" : "senderList",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.hazardalert.AlertEndpoint.senderList",
+      "request" : {
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "alertendpoint.alert.get" : {
+      "path" : "alert/{id}",
+      "httpMethod" : "GET",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.hazardalert.AlertEndpoint.getAlert",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
+    "alertendpoint.subscription.updateExpires" : {
+      "path" : "subscriptionUpdateExpires/{id}/{expires}",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.hazardalert.AlertEndpoint.subscriptionUpdateExpires",
+      "request" : {
+        "parameters" : {
+          "id" : {
+            "type" : "int64",
+            "required" : true
+          },
+          "expires" : {
+            "type" : "int64",
+            "required" : true
+          }
+        },
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    }
+  },
+  "descriptor" : {
+    "schemas" : {
+      "Bounds" : {
+        "id" : "Bounds",
+        "type" : "object",
+        "properties" : {
+          "ne_lat" : {
+            "type" : "number"
+          },
+          "ne_lng" : {
+            "type" : "number"
+          },
+          "sw_lat" : {
+            "type" : "number"
+          },
+          "sw_lng" : {
+            "type" : "number"
+          }
+        }
+      },
+      "AlertTransport" : {
+        "id" : "AlertTransport",
+        "type" : "object",
+        "properties" : {
+          "sourceUrl" : {
+            "type" : "string"
+          },
+          "payload" : {
+            "type" : "string"
+          }
+        }
+      },
+      "AlertTransportCollection" : {
+        "id" : "AlertTransportCollection",
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "AlertTransport"
+            }
+          }
+        }
+      },
+      "Subscription" : {
+        "id" : "Subscription",
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "gcm" : {
+            "type" : "string"
+          },
+          "expires" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "bounds" : {
+            "$ref" : "Bounds"
+          }
+        }
+      },
+      "AlertFilter" : {
+        "id" : "AlertFilter",
+        "type" : "object",
+        "properties" : {
+          "include" : {
+            "$ref" : "Bounds"
+          },
+          "exclude" : {
+            "$ref" : "Bounds"
+          },
+          "minExpires" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "minEffective" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "severity" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string",
+              "format" : "int64"
+            }
+          },
+          "certainty" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string",
+              "format" : "int64"
+            }
+          },
+          "urgency" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string",
+              "format" : "int64"
+            }
+          },
+          "status" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string",
+              "format" : "int64"
+            }
+          },
+          "senders" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string",
+              "format" : "int64"
+            }
+          },
+          "limit" : {
+            "type" : "string",
+            "format" : "int64"
+          }
+        }
+      },
+      "Sender" : {
+        "id" : "Sender",
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "string",
+            "format" : "int64"
+          },
+          "sender" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          },
+          "url" : {
+            "type" : "string"
+          },
+          "suppress" : {
+            "type" : "boolean"
+          }
+        }
+      },
+      "SenderCollection" : {
+        "id" : "SenderCollection",
+        "type" : "object",
+        "properties" : {
+          "items" : {
+            "type" : "array",
+            "items" : {
+              "$ref" : "Sender"
+            }
+          }
+        }
+      }
+    },
+    "methods" : {
+      "com.hazardalert.AlertEndpoint.updateSubscription" : {
+        "request" : {
+          "$ref" : "Bounds"
+        },
+        "response" : {
+          "$ref" : "AlertTransportCollection"
+        }
+      },
+      "com.hazardalert.AlertEndpoint.subscriptionGet" : {
+        "response" : {
+          "$ref" : "Subscription"
+        }
+      },
+      "com.hazardalert.AlertEndpoint.alertFind" : {
+        "response" : {
+          "$ref" : "AlertTransport"
+        }
+      },
+      "com.hazardalert.AlertEndpoint.listAlert" : {
+        "request" : {
+          "$ref" : "AlertFilter"
+        },
+        "response" : {
+          "$ref" : "AlertTransportCollection"
+        }
+      },
+      "com.hazardalert.AlertEndpoint.createSubscription" : {
+        "request" : {
+          "$ref" : "Bounds"
+        },
+        "response" : {
+          "$ref" : "Subscription"
+        }
+      },
+      "com.hazardalert.AlertEndpoint.senderList" : {
+        "response" : {
+          "$ref" : "SenderCollection"
+        }
+      },
+      "com.hazardalert.AlertEndpoint.getAlert" : {
+        "response" : {
+          "$ref" : "AlertTransport"
+        }
+      },
+      "com.hazardalert.AlertEndpoint.subscriptionUpdateExpires" : {
+        "response" : {
+          "$ref" : "Subscription"
+        }
+      }
+    }
+  }
+}
