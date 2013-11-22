@@ -18,7 +18,7 @@ public class LosslessPolygonSimplifier {
 		final double AREA_THRESHOLD = 0.005; // allow excesses up to half a percent of total original area
 		final double LINE_THRESHOLD = 0.0001; // fine threshold to strip straight lines
 		try {
-			if (!input.isSimple()) {
+			if (!isSimplePolygon(input)) {
 				logger.warning("Attempting to simplify complex polygon!");
 			}
 			Polygon simple = simplifyInternal(input, AREA_THRESHOLD, LINE_THRESHOLD);
@@ -39,13 +39,17 @@ public class LosslessPolygonSimplifier {
 		}
 	}
 
+	private static boolean isSimplePolygon(Polygon p) {
+		return 0 == p.getNumInteriorRing() && p.isSimple();
+	}
+
 	// TODO avoid creating triangles on long straight edges
 	public static Polygon simplifyInternal(Polygon original, double areaThreshold, double lineThreshold) {
 		GeometryFactory gf = new GeometryFactory();
 		Geometry excesses, excess, keepTotal, keepA, keepB, chA, chB, keep = null, elim = null;
 		// pre-strip straight lines to avoid pathological time case
 		original = (Polygon) com.vividsolutions.jts.simplify.TopologyPreservingSimplifier.simplify(original, lineThreshold);
-		Polygon simplified = null, wrapper = (Polygon) original.convexHull();
+		Polygon simplified = null, newWrapper = null, wrapper = (Polygon) original.convexHull();
 		try {
 			boolean done = false;
 			while (!done) {
@@ -76,8 +80,11 @@ public class LosslessPolygonSimplifier {
 						}
 						elim = excess.difference(keep);
 						if (!elim.isEmpty()) {
-							wrapper = (Polygon) wrapper.difference(elim);
-							done = false; // successfully eliminated an excess - keep going
+							newWrapper = (Polygon) wrapper.difference(elim);
+							if (isSimplePolygon(newWrapper)) {
+								wrapper = (Polygon) wrapper.difference(elim);
+								done = false; // successfully eliminated an excess - keep going
+							}
 						}
 					}
 				}
@@ -86,12 +93,11 @@ public class LosslessPolygonSimplifier {
 			new Assert(wrapper.getArea() <= 1.00001 * original.convexHull().getArea());
 			simplified = (Polygon) com.vividsolutions.jts.simplify.TopologyPreservingSimplifier.simplify(wrapper, lineThreshold);
 			new Assert(simplified.getNumPoints() <= original.getNumPoints());
-			new Assert(simplified.getNumInteriorRing() == 0);
-			new Assert(simplified.isSimple());
+			new Assert(isSimplePolygon(simplified));
 			return simplified;
 		}
 		catch (Exception e) {
-			if (original.isSimple()) {
+			if (isSimplePolygon(original)) {
 				StringBuilder sb = new StringBuilder();
 				sb.append("Failed to simplify non-complex polygon!");
 				sb.append("\noriginal: " + original.toText());
