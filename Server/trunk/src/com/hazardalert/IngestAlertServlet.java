@@ -275,7 +275,7 @@ public class IngestAlertServlet extends TaskServlet {
 					else {
 						// create a small 10m x 10m area so we can display on map
 						Point center = new Point(circle.getPoint());
-						Bounds b = new Bounds(CommonUtil.getBoundingBox(center, 0.01));
+						Bounds b = new Bounds(center, 0.01);
 						polygons.add(CommonUtil.toPolygonCap(b.toPolygon()));
 					}
 				}
