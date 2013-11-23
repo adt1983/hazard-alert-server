@@ -54,7 +54,7 @@ select X(PointN(ExteriorRing(Envelope(a.area)), 1)), Y(PointN(ExteriorRing(Envel
 select X(PointN(ExteriorRing(Envelope(a.area)), 1)), Y(PointN(ExteriorRing(Envelope(a.area)), 1)), X(PointN(ExteriorRing(Envelope(a.area)), 3)), Y(PointN(ExteriorRing(Envelope(a.area)), 3)) from Alert a where a.fullName like '%NOAA-NWS-ALERTS-PA124F233F8A5C.FreezeWarning.124F234FAAE0PA.PHINPWPHI.fa8f35cbe5d16bd522b3e1f71e88cc5c%'
 
 -- Create sender
-insert into Sender (name, sender, url) values ('Environment Canada', 'cap-pac@ec.gc.ca', QUOTE('http://weather.gc.ca/'))
+insert into Sender (name, sender, url) values ('<full name>', '<unique sender>', 'http://'))
 
 SHOW ENGINE INNODB STATUS
 -- How App Engine logs startup:

@@ -15,7 +15,6 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.Index;
 
 import com.hazardalert.common.Bounds;
-import com.hazardalert.common.CommonUtil;
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.Geometry;
 
@@ -43,7 +42,7 @@ public class Subscription {
 
 	public Subscription(String gcm, Coordinate northeast, Coordinate southwest) {
 		this.gcm = gcm;
-		this.area.setArea(CommonUtil.createBoundingBox(northeast, southwest));
+		this.area.setArea(new Bounds(northeast, southwest).toPolygon());
 	}
 
 	public Subscription(String gcm, Geometry area, Long expires) {
