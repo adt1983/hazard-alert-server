@@ -147,13 +147,12 @@ public class IngestAlertServlet extends TaskServlet {
 				if (internal.getMsgType() == MsgType.CANCEL || internal.getMsgType() == MsgType.UPDATE) {
 					for (String superceded : internal.getReferences().getValueList()) {
 						logger.info("Supercede:\nnew: " + alert.getFullName() + "\nold: " + superceded);
-						List<Alert> toUpdate = em.createQuery(	"FROM Alert WHERE fullName = :fullName AND updatedByFullName IS NULL",
+						List<Alert> toRemove = em.createQuery(	"FROM Alert WHERE fullName = :fullName AND updatedByFullName IS NULL",
 																Alert.class)
 													.setParameter("fullName", superceded)
 													.getResultList();
-						for (Alert updated : U.toNonNull(toUpdate)) {
-							updated.setUpdatedBy(alert.getFullName());
-							em.merge(updated);
+						for (Alert a : U.toNonNull(toRemove)) {
+							em.remove(a);
 						}
 					}
 				}
