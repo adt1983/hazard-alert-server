@@ -143,7 +143,6 @@ public class IngestAlertServlet extends TaskServlet {
 			EntityManager em = ApiKeyInitializer.createEntityManager();
 			try {
 				em.getTransaction().begin();
-				em.persist(alert);
 				if (internal.getMsgType() == MsgType.CANCEL || internal.getMsgType() == MsgType.UPDATE) {
 					for (String superceded : internal.getReferences().getValueList()) {
 						logger.info("Supercede:\nnew: " + alert.getFullName() + "\nold: " + superceded);
@@ -152,10 +151,14 @@ public class IngestAlertServlet extends TaskServlet {
 													.setParameter("fullName", superceded)
 													.getResultList();
 						for (Alert a : U.toNonNull(toRemove)) {
+							if (a.getExpires().after(alert.getExpires())) {
+								alert.setExpires(a.getExpires()); // updates inherit expiry time
+							}
 							em.remove(a);
 						}
 					}
 				}
+				em.persist(alert);
 				em.getTransaction().commit();
 				DB.pushAlert(alert); // push after commit or alert won't be found on separate EM
 			}
