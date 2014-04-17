@@ -230,7 +230,10 @@ public class Alert {
 	}
 
 	public Message buildTickle() {
-		return new Message.Builder().timeToLive(pushTTL()).addData("fullName", getFullName()).build();
+		return new Message.Builder().timeToLive(pushTTL())
+									.addData("fullName", getFullName())
+									.addData("timeSent", Long.toString(new Date().getTime()))
+									.build();
 	}
 
 	public static Alert get(Long id) {
