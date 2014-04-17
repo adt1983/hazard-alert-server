@@ -7,7 +7,7 @@
   "defaultVersion" : false,
   "adapter" : {
     "bns" : "https://hazard-alert.appspot.com/_ah/spi",
-    "deadline" : 10.0,
+    "deadline" : 65.0,
     "type" : "lily"
   },
   "auth" : {
@@ -311,6 +311,12 @@
             "items" : {
               "type" : "string",
               "format" : "int64"
+            }
+          },
+          "languages" : {
+            "type" : "array",
+            "items" : {
+              "type" : "string"
             }
           },
           "limit" : {
