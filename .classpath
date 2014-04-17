@@ -10,9 +10,6 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="default/WEB-INF/lib/appengine-api-1.0-sdk-1.9.3.jar"/>
-	<classpathentry kind="lib" path="default/WEB-INF/lib/appengine-endpoints-deps.jar"/>
-	<classpathentry kind="lib" path="default/WEB-INF/lib/appengine-jsr107cache-1.9.3.jar"/>
 	<classpathentry kind="lib" path="default/WEB-INF/lib/antlr-2.7.7.jar"/>
 	<classpathentry kind="lib" path="default/WEB-INF/lib/cap-library-r3.jar"/>
 	<classpathentry kind="lib" path="default/WEB-INF/lib/dom4j-1.6.1.jar"/>
