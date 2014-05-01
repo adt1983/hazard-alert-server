@@ -1,6 +1,7 @@
 package com.hazardalert;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -51,5 +52,17 @@ public abstract class U extends CommonUtil {
 		}
 		stream.close();
 		return sb.toString();
+	}
+
+	public final static ByteArrayOutputStream readFullyBAOS(InputStream stream) throws IOException {
+		//http://stackoverflow.com/questions/5923817/how-to-clone-an-inputstream
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		byte[] buffer = new byte[1024];
+		int len;
+		while ((len = stream.read(buffer)) > -1) {
+			baos.write(buffer, 0, len);
+		}
+		baos.flush();
+		return baos;
 	}
 }
