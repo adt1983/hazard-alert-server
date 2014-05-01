@@ -1,0 +1,10 @@
+Not sure how to handle new/dynamic senders
+
+<sender>ntwc@noaa.gov</sender>
+http://ntwc.arh.noaa.gov/tsuPortal/events/PAAQ/2014/04/18/n48dhn/1/WEAK53/PAAQCAP.xml
+
+<sender>ManitobaEmergencyMeasuresOrganization</sender>
+http://capcp2.naad-adna.pelmorex.com/2014-04-17/2014_04_17T14_38_23_05_00I51B1B814_7382_05A3_E6CD_DC772057996D.xml
+
+<sender>cwb@scman.cwb.gov.tw</sender>
+https://alerts.ncdr.nat.gov.tw:443/cap/Capstorage/CWB/2014/Earthquake/CWB-EQ103056.cap
