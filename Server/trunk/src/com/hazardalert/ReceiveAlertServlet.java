@@ -40,9 +40,12 @@ public class ReceiveAlertServlet extends HttpServlet {
 		Subscription.deleteExpired();
 		//TODO: it would be nice to have the full payload of req.getReader() for logging purposes but it can only be read once.
 		// Extracting its full contents to a String causes exceptions b/c it gets truncated on large feeds.
+		String postData = "";
 		try {
 			Queue queue = QueueFactory.getQueue("ingest");
-			SyndFeed feed = parser.parseFeed(req.getReader());
+			postData = U.readFully(req.getInputStream());
+			//SyndFeed feed = parser.parseFeed(req.getReader());
+			SyndFeed feed = parser.parseFeed(postData);
 			@SuppressWarnings("unchecked") List<SyndEntry> entries = feed.getEntries();
 			for (SyndEntry se : entries) {
 				String capUrl = "";
@@ -65,7 +68,7 @@ public class ReceiveAlertServlet extends HttpServlet {
 			}
 		}
 		catch (Exception e) {
-			logger.log(Level.SEVERE, "Feed Error.", e);
+			logger.log(Level.SEVERE, "Feed Error: \n" + postData, e);
 			// don't rethrow the exception so Alert Hub thinks the post was successful. we don't want to be spammed by retries that are just going to fail all over again
 		}
 	}
