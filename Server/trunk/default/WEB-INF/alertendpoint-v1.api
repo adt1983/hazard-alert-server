@@ -149,6 +149,21 @@
         "body" : "autoTemplate(backendResponse)"
       }
     },
+    "alertendpoint.serverTime" : {
+      "path" : "serverTime",
+      "httpMethod" : "POST",
+      "authLevel" : "NONE",
+      "scopes" : [ "https://www.googleapis.com/auth/userinfo.email" ],
+      "audiences" : [ ],
+      "clientIds" : [ "292824132082.apps.googleusercontent.com" ],
+      "rosyMethod" : "com.hazardalert.AlertEndpoint.serverTime",
+      "request" : {
+        "body" : "empty"
+      },
+      "response" : {
+        "body" : "autoTemplate(backendResponse)"
+      }
+    },
     "alertendpoint.alert.get" : {
       "path" : "alert/{id}",
       "httpMethod" : "GET",
@@ -358,6 +373,15 @@
             }
           }
         }
+      },
+      "StringResponse" : {
+        "id" : "StringResponse",
+        "type" : "object",
+        "properties" : {
+          "value" : {
+            "type" : "string"
+          }
+        }
       }
     },
     "methods" : {
@@ -398,6 +422,11 @@
       "com.hazardalert.AlertEndpoint.senderList" : {
         "response" : {
           "$ref" : "SenderCollection"
+        }
+      },
+      "com.hazardalert.AlertEndpoint.serverTime" : {
+        "response" : {
+          "$ref" : "StringResponse"
         }
       },
       "com.hazardalert.AlertEndpoint.getAlert" : {

@@ -13,7 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.appengine.api.taskqueue.Queue;
 import com.google.appengine.api.taskqueue.QueueFactory;
 import com.google.appengine.api.taskqueue.TaskOptions;
+import com.google.publicalerts.cap.CapException;
+import com.google.publicalerts.cap.CapXmlBuilder;
+import com.google.publicalerts.cap.NotCapException;
 import com.google.publicalerts.cap.feed.CapFeedParser;
+import com.sun.syndication.feed.synd.SyndContent;
 import com.sun.syndication.feed.synd.SyndEntry;
 import com.sun.syndication.feed.synd.SyndFeed;
 
@@ -43,26 +47,32 @@ public class ReceiveAlertServlet extends HttpServlet {
 		String postData = "";
 		try {
 			Queue queue = QueueFactory.getQueue("ingest");
-			postData = U.readFully(req.getInputStream());
+			postData = U.readFully(req.getInputStream()); // TODO: Move out of main try/catch to retry on IOException?
 			//SyndFeed feed = parser.parseFeed(req.getReader());
 			SyndFeed feed = parser.parseFeed(postData);
 			@SuppressWarnings("unchecked") List<SyndEntry> entries = feed.getEntries();
-			for (SyndEntry se : entries) {
+			for (SyndEntry entry : entries) {
 				String capUrl = "";
 				try {
-					capUrl = parser.getCapUrl(se);
-					if (null == capUrl) {
-						// not all entries have a CAP URL, Low Magnitude Earthquakes
-						// for example
-						logger.warning("No CAP URL found.");
+					capUrl = parser.getCapUrl(entry);
+					if (null != capUrl) {
+						logger.info("CAP URL: " + capUrl);
+						TaskOptions task = IngestAlertServlet.buildTask(capUrl);
+						queue.add(task);
 						continue;
 					}
-					logger.info("CAP URL: " + capUrl);
-					TaskOptions task = IngestAlertServlet.buildTask(capUrl);
+					com.google.publicalerts.cap.Alert alert = parser.parseAlert(entry);
+					TaskOptions task = IngestAlertServlet.buildTaskXml(new CapXmlBuilder().toXml(alert));
 					queue.add(task);
 				}
-				catch (Exception e) {
-					logger.log(Level.SEVERE, "Error while processing: " + capUrl, e);
+				catch (NotCapException nce) {
+					// not all entries have a CAP URL, Low Magnitude Earthquakes for example
+					@SuppressWarnings("unchecked") List<SyndContent> contents = entry.getContents();
+					logger.log(Level.WARNING, "Entry Warning: \n" + contents.get(0).getValue(), nce);
+				}
+				catch (CapException ce) {
+					@SuppressWarnings("unchecked") List<SyndContent> contents = entry.getContents();
+					logger.log(Level.SEVERE, "Entry Error: \n" + contents.get(0).getValue(), ce);
 					// give up on this entry but continue trying any remaining entries
 				}
 			}
