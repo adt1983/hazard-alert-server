@@ -3,6 +3,11 @@ http://hazard-alert.appspot.com/receiveAlert
 
 http://alert-hub.appspot.com/publishers
 Feeds:
+https://correo1.conagua.gob.mx/feedsmn/feedalert.aspx
+https://inatews.bmkg.go.id/rss/capatomlast40event.xml
+https://alerts.ncdr.nat.gov.tw/RssAtomFeed.ashx
+
+
 http://wcatwc.arh.noaa.gov/events/xml/PAAQAtom.xml
 http://www.gdacs.org/xml/gdacs_cap.xml - not parsing b/c it's rooted with <alert>
 http://alerts.weather.gov/cap/us.php?x=1

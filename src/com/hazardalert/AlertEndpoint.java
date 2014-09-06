@@ -4,12 +4,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
-import javax.annotation.Nullable;
-import javax.inject.Named;
 import javax.persistence.EntityManager;
 
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
+import com.google.api.server.spi.config.Named;
+import com.google.api.server.spi.config.Nullable;
 import com.hazardalert.common.AlertFilter;
 import com.hazardalert.common.Bounds;
 import com.vividsolutions.jts.geom.Geometry;
@@ -98,6 +98,7 @@ public class AlertEndpoint {
 		}
 	}
 
+	//FIXME log incoming expiration request
 	@ApiMethod(name = "subscription.updateExpires", httpMethod = "POST")
 	public Subscription subscriptionUpdateExpires(@Named("id") Long id, @Named("expires") Long expires) {
 		Subscription s = Subscription.get(id);
@@ -112,5 +113,10 @@ public class AlertEndpoint {
 		finally {
 			em.close();
 		}
+	}
+
+	@ApiMethod(name = "serverTime")
+	public StringResponse serverTime() {
+		return new StringResponse(Long.toString(new Date().getTime()));
 	}
 }
