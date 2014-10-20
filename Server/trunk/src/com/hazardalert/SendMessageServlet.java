@@ -68,7 +68,6 @@ import com.google.appengine.api.taskqueue.TaskOptions.Method;
  * <p>
  * This servlet is invoked by AppEngine's Push Queue mechanism.
  */
-//TODO: this control path is questionable
 @SuppressWarnings("serial")
 public class SendMessageServlet extends TaskServlet {
 	static final String PARAMETER_MULTICAST = "multicastKey";
@@ -106,7 +105,7 @@ public class SendMessageServlet extends TaskServlet {
 			sendMulticastMessage(msg, resp);
 		}
 		catch (Exception e) {
-			logger.log(Level.SEVERE, "Exception posting " + (msg == null ? "<null>" : msg.message), e);
+			logger.log(Level.SEVERE, "Exception posting " + (msg == null ? "<null>" : msg), e);
 			setStatusRetry(resp);
 			super.doPost(req, resp); // don't retry if we are over the retry limit
 		}
@@ -116,6 +115,7 @@ public class SendMessageServlet extends TaskServlet {
 		MulticastResult multicastResult;
 		try {
 			multicastResult = sender.sendNoRetry(msg.message, msg.devices);
+			logger.info("Sent Multicast " + msg);
 		}
 		catch (IOException e) {
 			throw new RuntimeException(e);
@@ -173,7 +173,6 @@ public class SendMessageServlet extends TaskServlet {
 	}
 
 	private void multicastDone(HttpServletResponse resp, MulticastMessage msg) {
-		logger.info("Sent Multicast " + msg.getId() + " to " + msg.devices.size() + " devices");
 		msg.delete();
 		setStatusDone(resp);
 	}

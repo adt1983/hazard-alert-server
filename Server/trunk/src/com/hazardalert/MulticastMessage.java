@@ -13,9 +13,15 @@ import com.googlecode.objectify.annotation.Serialize;
 @Entity
 @Cache
 public class MulticastMessage {
-	@Id public Long id; // Long for auto-generate
-	@Serialize public Message message;
-	@Serialize public List<String> devices;
+	@Id
+	public Long id; // Long for auto-generate
+
+	@Serialize
+	public Message message;
+
+	@Serialize
+	public List<String> devices;
+
 	static final int MAX_MULTICAST_SIZE = 1000;
 
 	@SuppressWarnings("unused")
@@ -29,6 +35,11 @@ public class MulticastMessage {
 	public MulticastMessage(Message msg, List<String> recipients) {
 		message = msg;
 		devices = recipients;
+	}
+
+	@Override
+	public String toString() {
+		return "MulticastMessage(id=" + id + ", devices.size=" + devices.size() + "message=" + message + ")";
 	}
 
 	public String getId() {
