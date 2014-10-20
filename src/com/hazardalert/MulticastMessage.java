@@ -39,7 +39,7 @@ public class MulticastMessage {
 
 	@Override
 	public String toString() {
-		return "MulticastMessage(id=" + id + ", devices.size=" + devices.size() + "message=" + message + ")";
+		return "MulticastMessage(id=" + id + ", devices.size=" + devices.size() + ", message=" + message + ")";
 	}
 
 	public String getId() {
