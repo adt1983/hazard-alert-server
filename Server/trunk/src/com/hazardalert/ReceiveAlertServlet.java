@@ -17,7 +17,6 @@ import com.google.publicalerts.cap.CapException;
 import com.google.publicalerts.cap.CapXmlBuilder;
 import com.google.publicalerts.cap.NotCapException;
 import com.google.publicalerts.cap.feed.CapFeedParser;
-import com.sun.syndication.feed.synd.SyndContent;
 import com.sun.syndication.feed.synd.SyndEntry;
 import com.sun.syndication.feed.synd.SyndFeed;
 
@@ -36,6 +35,12 @@ public class ReceiveAlertServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		resp.setStatus(HttpServletResponse.SC_OK);
 		resp.getWriter().write(req.getParameter("hub.challenge"));
+	}
+
+	public String entryToString(SyndEntry entry) {
+		return "Title: " + entry.getTitle() + //
+				"\nLink:" + entry.getLink() + //
+				"\nDescription: " + entry.getDescription() == null ? "" : entry.getDescription().getValue();
 	}
 
 	@Override
@@ -67,12 +72,10 @@ public class ReceiveAlertServlet extends HttpServlet {
 				}
 				catch (NotCapException nce) {
 					// not all entries have a CAP URL, Low Magnitude Earthquakes for example
-					@SuppressWarnings("unchecked") List<SyndContent> contents = entry.getContents();
-					logger.log(Level.WARNING, "Entry Warning: \n" + contents.get(0).getValue(), nce);
+					logger.log(Level.WARNING, "Entry Warning: \n" + entryToString(entry), nce);
 				}
 				catch (CapException ce) {
-					@SuppressWarnings("unchecked") List<SyndContent> contents = entry.getContents();
-					logger.log(Level.SEVERE, "Entry Error: \n" + contents.get(0).getValue(), ce);
+					logger.log(Level.SEVERE, "Entry Error: \n" + entryToString(entry), ce);
 					// give up on this entry but continue trying any remaining entries
 				}
 			}
