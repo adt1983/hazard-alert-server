@@ -70,11 +70,9 @@ import com.google.appengine.api.taskqueue.TaskOptions.Method;
  */
 //TODO: this control path is questionable
 @SuppressWarnings("serial")
-public class SendMessageServlet extends BaseServlet {
-	private static final String HEADER_QUEUE_COUNT = "X-AppEngine-TaskRetryCount";
-	private static final String HEADER_QUEUE_NAME = "X-AppEngine-QueueName";
-	private static final int MAX_RETRY = 3;
+public class SendMessageServlet extends TaskServlet {
 	static final String PARAMETER_MULTICAST = "multicastKey";
+
 	private Sender sender;
 
 	public static TaskOptions buildTask(MulticastMessage msg) {
@@ -96,41 +94,22 @@ public class SendMessageServlet extends BaseServlet {
 	}
 
 	/**
-	 * Indicates to App Engine that this task should be retried.
-	 */
-	private void retryTask(HttpServletResponse resp) {
-		resp.setStatus(500);
-	}
-
-	/**
-	 * Indicates to App Engine that this task is done.
-	 */
-	private void taskDone(HttpServletResponse resp) {
-		resp.setStatus(200);
-	}
-
-	/**
 	 * Processes the request to add a new message.
 	 */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		if (req.getHeader(HEADER_QUEUE_NAME) == null) {
-			throw new IOException("Missing header " + HEADER_QUEUE_NAME);
+		setStatusDone(resp);
+		MulticastMessage msg = null;
+		try {
+			String multicastKey = req.getParameter(PARAMETER_MULTICAST);
+			msg = MulticastMessage.safeGet(multicastKey);
+			sendMulticastMessage(msg, resp);
 		}
-		String retryCountHeader = req.getHeader(HEADER_QUEUE_COUNT);
-		logger.fine("retry count: " + retryCountHeader);
-		if (retryCountHeader != null) {
-			int retryCount = Integer.parseInt(retryCountHeader);
-			if (retryCount > MAX_RETRY) {
-				logger.severe("Too many retries, dropping task");
-				taskDone(resp);
-				return;
-			}
+		catch (Exception e) {
+			logger.log(Level.SEVERE, "Exception posting " + (msg == null ? "<null>" : msg.message), e);
+			setStatusRetry(resp);
+			super.doPost(req, resp); // don't retry if we are over the retry limit
 		}
-		String multicastKey = req.getParameter(PARAMETER_MULTICAST);
-		MulticastMessage msg = MulticastMessage.safeGet(multicastKey);
-		sendMulticastMessage(msg, resp);
-		taskDone(resp);
 	}
 
 	private void sendMulticastMessage(MulticastMessage msg, HttpServletResponse resp) {
@@ -139,9 +118,7 @@ public class SendMessageServlet extends BaseServlet {
 			multicastResult = sender.sendNoRetry(msg.message, msg.devices);
 		}
 		catch (IOException e) {
-			logger.log(Level.SEVERE, "Exception posting " + msg.message, e);
-			multicastDone(resp, msg);
-			return;
+			throw new RuntimeException(e);
 		}
 		boolean allDone = true;
 		// check if any registration id must be updated
@@ -184,20 +161,20 @@ public class SendMessageServlet extends BaseServlet {
 				msg.devices = retriableRegIds;
 				msg.save();
 				allDone = false;
-				retryTask(resp);
+				setStatusRetry(resp);
 			}
 		}
 		if (allDone) {
 			multicastDone(resp, msg);
 		}
 		else {
-			retryTask(resp);
+			setStatusRetry(resp);
 		}
 	}
 
 	private void multicastDone(HttpServletResponse resp, MulticastMessage msg) {
 		logger.info("Sent Multicast " + msg.getId() + " to " + msg.devices.size() + " devices");
 		msg.delete();
-		taskDone(resp);
+		setStatusDone(resp);
 	}
 }
