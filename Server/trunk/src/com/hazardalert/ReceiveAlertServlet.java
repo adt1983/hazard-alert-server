@@ -46,7 +46,7 @@ public class ReceiveAlertServlet extends HttpServlet {
 	@Override
 	public void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
 		Alert.deleteExpired();
-		Subscription.deleteExpired();
+		//Subscription.deleteExpired();
 		//TODO: it would be nice to have the full payload of req.getReader() for logging purposes but it can only be read once.
 		// Extracting its full contents to a String causes exceptions b/c it gets truncated on large feeds.
 		String postData = "";

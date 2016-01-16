@@ -285,6 +285,9 @@
           "exclude" : {
             "$ref" : "Bounds"
           },
+          "location" : {
+            "$ref" : "Point"
+          },
           "minExpires" : {
             "type" : "string",
             "format" : "int64"
@@ -337,6 +340,48 @@
           "limit" : {
             "type" : "string",
             "format" : "int64"
+          }
+        }
+      },
+      "Point" : {
+        "id" : "Point",
+        "type" : "object",
+        "properties" : {
+          "x" : {
+            "type" : "number"
+          },
+          "y" : {
+            "type" : "number"
+          },
+          "z" : {
+            "type" : "number"
+          },
+          "lat" : {
+            "type" : "number"
+          },
+          "lng" : {
+            "type" : "number"
+          },
+          "coordinate" : {
+            "$ref" : "Coordinate"
+          }
+        }
+      },
+      "Coordinate" : {
+        "id" : "Coordinate",
+        "type" : "object",
+        "properties" : {
+          "x" : {
+            "type" : "number"
+          },
+          "y" : {
+            "type" : "number"
+          },
+          "z" : {
+            "type" : "number"
+          },
+          "coordinate" : {
+            "$ref" : "Coordinate"
           }
         }
       },

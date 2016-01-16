@@ -84,6 +84,9 @@ public class AlertEndpoint {
 	public List<Alert> updateSubscription(@Named("id") Long id, @Named("gcm") String gcm, Bounds bounds) {
 		logger.info("\nid: " + id + "\ngcm: " + gcm + "\nbounds: " + bounds.toString());
 		Subscription s = Subscription.get(id);
+		if (0 != gcm.compareTo(s.getGcm())) {
+			logger.severe("Incoming gcm != existing gcm!");
+		}
 		Bounds oldBounds = s.getBounds();
 		EntityManager em = ApiKeyInitializer.createEntityManager();
 		try {
@@ -104,6 +107,14 @@ public class AlertEndpoint {
 		Subscription s = Subscription.get(id);
 		EntityManager em = ApiKeyInitializer.createEntityManager();
 		try {
+			Date expiresDate = new Date(expires);
+			long expiresTime = expiresDate.getTime();
+			long now = new Date().getTime();
+			logger.info(s.toString() + "\nexpires: " + expiresTime + "\nnow    : " + now + "\ndiff (hrs): "
+					+ ((expiresTime - now) / (1000 * 60 * 60)));
+			if (expiresTime - now < 8 * 3600000) {
+				logger.warning(expiresTime - now + " is less than 8 hours!");
+			}
 			em.getTransaction().begin();
 			s.setExpires(new Date(expires));
 			em.merge(s);
