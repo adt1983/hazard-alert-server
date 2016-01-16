@@ -6,6 +6,7 @@ Feeds:
 https://correo1.conagua.gob.mx/feedsmn/feedalert.aspx
 https://inatews.bmkg.go.id/rss/capatomlast40event.xml
 https://alerts.ncdr.nat.gov.tw/RssAtomFeed.ashx
+http://publicalert.pagasa.dost.gov.ph/feeds/
 
 
 http://wcatwc.arh.noaa.gov/events/xml/PAAQAtom.xml

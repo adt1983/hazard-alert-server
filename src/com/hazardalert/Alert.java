@@ -230,7 +230,16 @@ public class Alert {
 	}
 
 	public Message buildTickle() {
+		boolean delay = true;
+		for (Info i : impl.getInfoList()) {
+			if (com.google.publicalerts.cap.Info.Severity.SEVERE == i.getSeverity()
+					|| com.google.publicalerts.cap.Info.Severity.EXTREME == i.getSeverity()) {
+				delay = false;
+				break;
+			}
+		}
 		return new Message.Builder().timeToLive(pushTTL())
+									.delayWhileIdle(delay)
 									.addData("fullName", getFullName())
 									.addData("timeSent", Long.toString(new Date().getTime()))
 									.build();
